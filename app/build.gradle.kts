@@ -56,6 +56,7 @@ dependencies {
     val nav_version = "2.6.0"
     val lifecycleVersion = "2.6.1"
     val room_version = "2.5.2"
+    val lottieVersion = "6.1.0"
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
@@ -91,5 +92,8 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
+
+    //lottie
+    implementation("com.airbnb.android:lottie-compose:$lottieVersion")
 
 }

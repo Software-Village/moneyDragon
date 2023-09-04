@@ -3,5 +3,25 @@
     <string name="home">Home</string>
     <string name="splash">Splash</string>
     <string name="onboarding">Onboarding</string>
+    <string name="addCard">Add Card</string>
     <string name="profile">Profile</string>
+    <string name="wallet">Wallet</string>
+    <string name="chart">Chart</string>
+    <string name="current_balance">Current Balance</string>
+    <string name="incoming_transactions">Incoming Transactions</string>
+    <string name="see_all">See all</string>
+    <string name="from">From</string>
+    <string name="outgoing_transactions">Outgoing Transactions</string>
+    <string name="yourBalance">Your balance</string>
+    <string name="visa">Visa</string>
+    <string name="date">Date</string>
+    <string name="cvv">CVV</string>
+    <string name="other_transactions">Other Transactions</string>
+    <string name="card_Details">Card Details</string>
+    <string name="add_card">Add Card</string>
+    <string name="transactions">Transactions</string>
+    <string name="card_number">Card Number</string>
+    <string name="holders_name">Holder\'s name</string>
+    <string name="expiry_date">Expiry date</string>
+    <string name="add_Card_Info">To add a new card, please fill out the fields below carefully in order to add card successfully.</string>
 </resources>

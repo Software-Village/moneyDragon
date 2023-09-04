@@ -31,7 +31,6 @@ class MainActivity : ComponentActivity() {
 }
 
 
-//bjk
 
 @Preview(showBackground = true)
 @Composable

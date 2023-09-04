@@ -1,4 +1,4 @@
-package net.softwarevillage.moneydragon.presentation.ui.screens
+package net.softwarevillage.moneydragon.presentation.ui.screens.profile
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
