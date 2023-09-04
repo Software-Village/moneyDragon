@@ -20,11 +20,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import net.softwarevillage.moneydragon.common.Screen
 import net.softwarevillage.moneydragon.presentation.ui.screens.HomeScreen
-import net.softwarevillage.moneydragon.presentation.ui.screens.OnboardingScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.ProfileScreen
-import net.softwarevillage.moneydragon.presentation.ui.screens.SplashScreen
+import net.softwarevillage.moneydragon.presentation.ui.screens.auth.CreateUserScreen
+import net.softwarevillage.moneydragon.presentation.ui.screens.auth.OnboardingScreen
+import net.softwarevillage.moneydragon.presentation.ui.screens.auth.SplashScreen
+import net.softwarevillage.moneydragon.presentation.ui.screens.auth.WelcomeScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,7 +42,7 @@ fun MainNavController() {
     )
 
     showBottomBar.value = when (currentDestination?.route) {
-        Screen.OnboardingScreen.route, Screen.SplashScreen.route -> false
+        Screen.WelcomeScreen.route, Screen.SplashScreen.route, Screen.OnboardingScreen.route, Screen.CreateUserScreen.route -> false
         else -> true
     }
 
@@ -76,17 +77,36 @@ fun MainNavController() {
     ) { innerPadding ->
         NavHost(
             navController,
-            startDestination = Screen.HomeScreen.route,
+            startDestination = Screen.SplashScreen.route,
             Modifier.padding(innerPadding)
         ) {
             composable(Screen.SplashScreen.route) {
-                SplashScreen()
+                SplashScreen(navigateHome = {
+                    navController.navigate(Screen.WelcomeScreen.route)
+                })
             }
-            composable(Screen.OnboardingScreen.route) { OnboardingScreen() }
+            composable(Screen.WelcomeScreen.route) {
+                WelcomeScreen(navigateOnboarding = {
+                    navController.navigate(Screen.OnboardingScreen.route)
+                })
+            }
             composable(Screen.HomeScreen.route) {
                 HomeScreen()
             }
+
             composable(Screen.ProfileScreen.route) { ProfileScreen() }
+
+            composable(Screen.OnboardingScreen.route) {
+                OnboardingScreen(navigateLogin = {
+                    navController.navigate(Screen.CreateUserScreen.route)
+                })
+            }
+
+            composable(Screen.CreateUserScreen.route) {
+                CreateUserScreen(navigateBack = {
+                    navController.popBackStack()
+                })
+            }
         }
     }
 
