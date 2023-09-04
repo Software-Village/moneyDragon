@@ -56,6 +56,7 @@ dependencies {
     val nav_version = "2.6.0"
     val lifecycleVersion = "2.6.1"
     val room_version = "2.5.2"
+    val lottieVersion = "6.1.0"
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
@@ -95,5 +96,8 @@ dependencies {
     //Coil
     implementation("io.coil-kt:coil-compose:2.4.0")
 
+
+    //lottie
+    implementation("com.airbnb.android:lottie-compose:$lottieVersion")
 
 }
