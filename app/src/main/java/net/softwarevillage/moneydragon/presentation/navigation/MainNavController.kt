@@ -4,9 +4,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -24,21 +22,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import net.softwarevillage.moneydragon.common.Screen
-import net.softwarevillage.moneydragon.presentation.ui.screens.chart.ChartScreen
-import net.softwarevillage.moneydragon.presentation.ui.screens.home.HomeScreen
-import net.softwarevillage.moneydragon.presentation.ui.screens.onboarding.OnboardingScreen
-import net.softwarevillage.moneydragon.presentation.ui.screens.profile.ProfileScreen
-import net.softwarevillage.moneydragon.presentation.ui.screens.splash.SplashScreen
-import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.WalletScreen
-import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.addCard.AddCardScreen
-import net.softwarevillage.moneydragon.presentation.ui.theme.PurpleBF
-import net.softwarevillage.moneydragon.presentation.ui.screens.HomeScreen
-import net.softwarevillage.moneydragon.presentation.ui.screens.ProfileScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.auth.CreateUserScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.auth.OnboardingScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.auth.SplashScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.auth.WelcomeScreen
+import net.softwarevillage.moneydragon.presentation.ui.screens.chart.ChartScreen
+import net.softwarevillage.moneydragon.presentation.ui.screens.home.HomeScreen
+import net.softwarevillage.moneydragon.presentation.ui.screens.profile.ProfileScreen
+import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.WalletScreen
+import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.addCard.AddCardScreen
+import net.softwarevillage.moneydragon.presentation.ui.theme.PurpleBF
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -60,9 +53,10 @@ fun MainNavController() {
         Screen.OnboardingScreen.route,
         Screen.SplashScreen.route,
         Screen.AddCardScreen.route,
+        Screen.WelcomeScreen.route,
+        Screen.CreateUserScreen.route,
         -> false
 
-        Screen.WelcomeScreen.route, Screen.SplashScreen.route, Screen.OnboardingScreen.route, Screen.CreateUserScreen.route -> false
         else -> true
     }
 
@@ -105,7 +99,7 @@ fun MainNavController() {
     ) { innerPadding ->
         NavHost(
             navController,
-            startDestination = Screen.SplashScreen.route,
+            startDestination = Screen.HomeScreen.route,
             Modifier.padding(innerPadding)
         ) {
             composable(Screen.SplashScreen.route) {
@@ -119,19 +113,15 @@ fun MainNavController() {
                 })
             }
             composable(Screen.OnboardingScreen.route) {
-                OnboardingScreen()
+                OnboardingScreen(navigateLogin = {
+                    navController.navigate(Screen.CreateUserScreen.route)
+                })
             }
             composable(Screen.HomeScreen.route) {
                 HomeScreen()
             }
 
             composable(Screen.ProfileScreen.route) { ProfileScreen() }
-
-            composable(Screen.OnboardingScreen.route) {
-                OnboardingScreen(navigateLogin = {
-                    navController.navigate(Screen.CreateUserScreen.route)
-                })
-            }
 
             composable(Screen.CreateUserScreen.route) {
                 CreateUserScreen(navigateBack = {
@@ -157,9 +147,6 @@ fun MainNavController() {
                         navController.popBackStack()
                     }
                 )
-            }
-            composable(Screen.ProfileScreen.route) {
-                ProfileScreen()
             }
         }
     }

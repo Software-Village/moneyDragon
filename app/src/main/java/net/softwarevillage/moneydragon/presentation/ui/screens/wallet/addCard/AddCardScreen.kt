@@ -1,9 +1,7 @@
 package net.softwarevillage.moneydragon.presentation.ui.screens.wallet.addCard
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,25 +11,19 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import net.softwarevillage.moneydragon.R
-import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.components.MainTextField
 import net.softwarevillage.moneydragon.presentation.ui.theme.Gray87
 import net.softwarevillage.moneydragon.presentation.ui.theme.PurpleBF
 import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily
@@ -99,28 +91,6 @@ fun AddCardScreen(
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Normal,
                 color = Gray87
-            )
-
-            MainTextField(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 40.dp),
-                textStyle = TextStyle(
-                    fontFamily = fontFamily,
-                    fontWeight = FontWeight.Normal,
-                    color = Color.Black,
-                    fontSize = 14.sp
-                ),
-                isError = false,
-                singleLine = true,
-                colors = TextFieldDefaults.colors(
-                    focusedContainerColor = Color.Unspecified,
-                    unfocusedContainerColor = Color.Unspecified,
-                    focusedIndicatorColor = PurpleBF,
-                    focusedLabelColor = PurpleBF,
-                    unfocusedLabelColor = Gray87,
-                ),
-                label = stringResource(id = R.string.card_number),
             )
 
         }

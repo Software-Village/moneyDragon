@@ -1,4 +1,4 @@
-package net.softwarevillage.moneydragon.presentation.ui.screens.home.components
+package net.softwarevillage.moneydragon.presentation.ui.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.TextUnit
 
 @Composable
 fun BaseCircularImage(

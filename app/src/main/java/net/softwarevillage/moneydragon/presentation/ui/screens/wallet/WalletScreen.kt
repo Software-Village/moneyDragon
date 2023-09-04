@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -33,7 +32,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import net.softwarevillage.moneydragon.R
-import net.softwarevillage.moneydragon.common.Screen
+import net.softwarevillage.moneydragon.presentation.navigation.Screen
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.CardFace
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.FlipCard
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.MainCardBackItem
