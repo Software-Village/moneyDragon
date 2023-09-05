@@ -15,9 +15,10 @@ val White = Color(0xFFFFFFFF)
 
 val BlueCard = Color(0xFF8CD9E9)
 
-
 val Blue = Color(0xFF5063BF)
 val Grey = Color(0xFF878787)
 val LightBlue = Color(0xFF8EDFEB)
 val Black = Color(0xFF1E1E1E)
 val GreyText = Color(0xFFC4C4C4)
+val BlackText = Color(0xFF001A4D)
+val GreyLight = Color(0xFFF4F4F4)
