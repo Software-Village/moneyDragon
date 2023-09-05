@@ -6,6 +6,7 @@
     <string name="addCard">Add Card</string>
     <string name="profile">Profile</string>
     <string name="wallet">Wallet</string>
+    <string name="selectExpiryDate">Select expiry date</string>
     <string name="chart">Chart</string>
     <string name="current_balance">Current Balance</string>
     <string name="incoming_transactions">Incoming Transactions</string>
@@ -39,6 +40,9 @@
     <string name="enter_surname">Enter your last name</string>
     <string name="set">Set</string>
     <string name="next_page">Continue</string>
+    <string name="cancel">Cancel</string>
+    <string name="OK">OK</string>
     <string name="set_pin">Set Pin Code</string>
+    <string name="confirm">Confirm</string>
     <string name="pin_title">Please set your own Pin Code</string>
 </resources>
