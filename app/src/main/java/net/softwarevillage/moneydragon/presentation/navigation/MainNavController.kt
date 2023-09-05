@@ -2,7 +2,6 @@ package net.softwarevillage.moneydragon.presentation.navigation
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
@@ -34,7 +33,6 @@ import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.WalletScre
 import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.addCard.AddCardScreen
 import net.softwarevillage.moneydragon.presentation.ui.theme.PurpleBF
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainNavController() {
 
@@ -70,7 +68,6 @@ fun MainNavController() {
                 ) {
                     items.forEach { screen ->
                         NavigationBarItem(
-
                             icon = {
                                 Icon(
                                     painter = painterResource(id = screen.icon!!),
@@ -101,7 +98,7 @@ fun MainNavController() {
     ) { innerPadding ->
         NavHost(
             navController,
-            startDestination = Screen.CongratsScreen.route,
+            startDestination = Screen.SplashScreen.route,
             Modifier.padding(innerPadding)
         ) {
             composable(Screen.SplashScreen.route) {

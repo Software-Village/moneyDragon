@@ -1,7 +1,6 @@
 package net.softwarevillage.moneydragon.presentation.ui.components
 
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -14,16 +13,16 @@ import androidx.compose.ui.text.input.KeyboardType
 import net.softwarevillage.moneydragon.presentation.ui.theme.Blue
 import net.softwarevillage.moneydragon.presentation.ui.theme.Grey
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun MainTextInput(
+    modifier: Modifier = Modifier,
     text: MutableState<String>,
     label: String,
     singleLine: Boolean = false,
     action: ImeAction = ImeAction.Default,
     type: KeyboardType = KeyboardType.Text,
     enabled: Boolean = true,
-    modifier: Modifier = Modifier,
 ) {
     TextField(
         value = text.value,

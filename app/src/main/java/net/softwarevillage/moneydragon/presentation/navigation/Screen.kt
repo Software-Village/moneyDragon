@@ -16,6 +16,12 @@ sealed class Screen(
 
     object AddCardScreen : Screen("addCardScreen", name = R.string.addCard)
 
+    object CreateUserScreen : Screen(route = "createUser", name = R.string.create_user)
+
+    object CongratsScreen : Screen(route = "congratsScreen", name = R.string.congrats)
+
+    object OnboardingScreen : Screen(route = "onboardingScreen", name = R.string.onboarding)
+
 
     //BOTTOM NAVIGATION
     object WalletScreen :
@@ -25,22 +31,10 @@ sealed class Screen(
 
     object HomeScreen : Screen("homeScreen", name = R.string.home, icon = R.drawable.home_icon)
 
-    object OnboardingScreen : Screen(route = "onboardingScreen", name = R.string.onboarding)
-
     object ProfileScreen : Screen(
         "profileScreen",
         name = R.string.profile,
         icon = R.drawable.user_icon
-    )
-
-    object CreateUserScreen : Screen(
-        route = "createUser",
-        name = R.string.create_user
-    )
-
-    object CongratsScreen : Screen(
-        route = "congratsScreen",
-        name = R.string.congrats
     )
 
 }
