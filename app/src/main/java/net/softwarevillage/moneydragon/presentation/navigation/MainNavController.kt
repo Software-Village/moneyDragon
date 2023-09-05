@@ -22,6 +22,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import net.softwarevillage.moneydragon.presentation.ui.screens.auth.CongratsScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.auth.CreateUserScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.auth.OnboardingScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.auth.SplashScreen
@@ -55,6 +56,7 @@ fun MainNavController() {
         Screen.AddCardScreen.route,
         Screen.WelcomeScreen.route,
         Screen.CreateUserScreen.route,
+        Screen.CongratsScreen.route
         -> false
 
         else -> true
@@ -99,7 +101,7 @@ fun MainNavController() {
     ) { innerPadding ->
         NavHost(
             navController,
-            startDestination = Screen.HomeScreen.route,
+            startDestination = Screen.CongratsScreen.route,
             Modifier.padding(innerPadding)
         ) {
             composable(Screen.SplashScreen.route) {
@@ -147,6 +149,10 @@ fun MainNavController() {
                         navController.popBackStack()
                     }
                 )
+            }
+
+            composable(Screen.CongratsScreen.route) {
+                CongratsScreen()
             }
         }
     }

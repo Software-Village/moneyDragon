@@ -2,7 +2,6 @@ package net.softwarevillage.moneydragon.presentation.navigation
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.ui.res.stringResource
 import net.softwarevillage.moneydragon.R
 
 sealed class Screen(
@@ -37,6 +36,11 @@ sealed class Screen(
     object CreateUserScreen : Screen(
         route = "createUser",
         name = R.string.create_user
+    )
+
+    object CongratsScreen : Screen(
+        route = "congratsScreen",
+        name = R.string.congrats
     )
 
 }

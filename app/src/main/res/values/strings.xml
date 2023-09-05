@@ -41,4 +41,15 @@
     <string name="next_page">Continue</string>
     <string name="set_pin">Set Pin Code</string>
     <string name="pin_title">Please set your own Pin Code</string>
+    <string name="profile_title">Your Profile Information</string>
+    <string name="personal_information">Personal Information</string>
+    <string name="account_number">Account Number</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="privacy">Privacy Policy</string>
+    <string name="info">Info</string>
+    <string name="term_use">Term of use</string>
+    <string name="congrats">Congrats!</string>
+    <string name="account_register">Account Registed Successfully</string>
+    <string name="great">Great</string>
 </resources>
