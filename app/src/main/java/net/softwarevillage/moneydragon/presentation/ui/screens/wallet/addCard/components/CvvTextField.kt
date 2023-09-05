@@ -1,4 +1,5 @@
-package net.softwarevillage.moneydragon.presentation.ui.components
+package net.softwarevillage.moneydragon.presentation.ui.screens.wallet.addCard.components
+
 
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -16,18 +17,18 @@ import net.softwarevillage.moneydragon.presentation.ui.theme.Grey
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainTextInput(
+fun CvvTextInput(
     text: MutableState<String>,
     label: String,
     singleLine: Boolean = false,
     action: ImeAction = ImeAction.Default,
-    type: KeyboardType = KeyboardType.Text,
+    type: KeyboardType = KeyboardType.NumberPassword,
     enabled: Boolean = true,
     modifier: Modifier = Modifier,
 ) {
     TextField(
         value = text.value,
-        onValueChange = { text.value = it },
+        onValueChange = { if (it.length < 4) text.value = it },
         label = {
             Text(text = label)
         },
