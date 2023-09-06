@@ -31,7 +31,11 @@ fun CardNumberTextField(
     TextField(
         value = cardNumber.value,
         singleLine = true,
-        onValueChange = { it -> cardNumber.value = it },
+        onValueChange = { it ->
+            if (it.length <= 16) {
+                cardNumber.value = it
+            }
+        },
         modifier = modifier,
         label = {
             Text(text = label)

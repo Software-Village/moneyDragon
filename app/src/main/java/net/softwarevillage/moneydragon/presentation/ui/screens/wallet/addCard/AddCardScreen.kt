@@ -1,5 +1,8 @@
 package net.softwarevillage.moneydragon.presentation.ui.screens.wallet.addCard
 
+import android.content.Context
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,11 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilledTonalButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,7 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -29,17 +27,24 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import net.softwarevillage.moneydragon.R
+import net.softwarevillage.moneydragon.common.objectToJson
+import net.softwarevillage.moneydragon.common.validateCVV
+import net.softwarevillage.moneydragon.common.validateCreditCard
+import net.softwarevillage.moneydragon.common.validateFields
+import net.softwarevillage.moneydragon.domain.model.CardFaceUiModel
+import net.softwarevillage.moneydragon.presentation.navigation.Screen
 import net.softwarevillage.moneydragon.presentation.ui.components.MainButton
 import net.softwarevillage.moneydragon.presentation.ui.components.MainTextInput
+import net.softwarevillage.moneydragon.presentation.ui.components.NavigationButton
 import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.addCard.components.CardNumberTextField
 import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.addCard.components.CvvTextInput
 import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.addCard.components.MonthPicker
+import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.addCard.components.identifyCardScheme
 import net.softwarevillage.moneydragon.presentation.ui.theme.Gray87
-import net.softwarevillage.moneydragon.presentation.ui.theme.PurpleBF
 import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily
 import java.util.Calendar
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun AddCardScreen(
     onNavigate: (String) -> Unit,
@@ -48,11 +53,13 @@ fun AddCardScreen(
 
     val modifier = Modifier
 
-    val pickerVisiblity = remember {
+    val context = LocalContext.current
+
+    val pickerVisibility = remember {
         mutableStateOf(false)
     }
 
-    val date = remember {
+    val expiryDate = remember {
         mutableStateOf("")
     }
 
@@ -68,7 +75,6 @@ fun AddCardScreen(
 
     val cvv = remember { mutableStateOf("") }
 
-    val expiryDate = remember { mutableStateOf("") }
 
 
     Surface(
@@ -86,23 +92,10 @@ fun AddCardScreen(
                     .padding(horizontal = 5.dp, vertical = 30.dp),
             ) {
 
-                FilledTonalButton(
-                    modifier = modifier.padding(start = 10.dp),
-                    onClick = {
-                        onBackNavigate()
-                    },
-                    shape = RoundedCornerShape(20.dp),
-                    colors = ButtonDefaults.filledTonalButtonColors(
-                        containerColor = PurpleBF
-                    )
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.arrow_back),
-                        tint = Color.White,
-                        contentDescription = null
-                    )
-
-                }
+                NavigationButton(
+                    navigate = { onBackNavigate() },
+                    modifier = modifier.padding(start = 10.dp)
+                )
 
                 Text(
                     modifier = modifier.align(Alignment.Center),
@@ -156,30 +149,30 @@ fun AddCardScreen(
 
 
             MonthPicker(
-                visible = pickerVisiblity.value,
+                visible = pickerVisibility.value,
                 currentMonth = currentMonth,
                 currentYear = year,
                 confirmButtonClicked = { selectedMonth, selectedYear ->
                     val newYear = selectedYear.toString().substring(2, 4)
                     val newMonth =
                         if (selectedMonth < 10) "0$selectedMonth" else selectedMonth.toString()
-                    date.value = "$newMonth/$newYear"
-                    pickerVisiblity.value = false
+                    expiryDate.value = "$newMonth/$newYear"
+                    pickerVisibility.value = false
                 },
                 cancelClicked = {
-                    pickerVisiblity.value = false
+                    pickerVisibility.value = false
                 }
             )
 
             MainTextInput(
-                text = date,
+                text = expiryDate,
                 enabled = false,
                 label = stringResource(id = R.string.expiry_date),
                 modifier = modifier
                     .fillMaxWidth()
                     .padding(horizontal = 30.dp)
                     .clickable {
-                        pickerVisiblity.value = true
+                        pickerVisibility.value = true
                     }
             )
 
@@ -201,15 +194,63 @@ fun AddCardScreen(
             ) {
                 MainButton(
                     onClick = {
-
-
+                        checkState(
+                            onNavigate = onNavigate,
+                            context = context,
+                            cvv = cvv.value,
+                            holdersName = holdersName.value,
+                            cardNumber = cardNumber.value,
+                            expiryDate = expiryDate.value
+                        )
                     },
                     title = R.string.confirm
                 )
             }
-
-
         }
     }
+}
+
+private fun checkState(
+    onNavigate: (String) -> Unit,
+    context: Context,
+    expiryDate: String,
+    cvv: String,
+    holdersName: String,
+    cardNumber: String,
+) {
+
+    if (!validateFields(listOf(expiryDate, cvv, holdersName, cardNumber))) {
+        Toast.makeText(context, R.string.empty_field, Toast.LENGTH_SHORT).show()
+        return
+    }
+
+    if (!validateCreditCard(cardNumber)) {
+        Toast.makeText(context, R.string.short_card_number, Toast.LENGTH_SHORT).show()
+        return
+    }
+
+    if (!validateCVV(cvv)) {
+        Toast.makeText(context, R.string.short_cvv, Toast.LENGTH_SHORT).show()
+        return
+    }
+
+
+    val cardFaceUiModel = CardFaceUiModel(
+        holdersName = holdersName,
+        cardNumber = cardNumber,
+        cardScheme = identifyCardScheme(cardNumber).toString(),
+        expiryDate = expiryDate,
+        cvv = cvv.toInt()
+    )
+
+    Log.e("fortest", "main $cardNumber")
+
+    val data = objectToJson(cardFaceUiModel)
+
+    Log.e("data", data)
+
+    onNavigate(Screen.CardColorScreen.route + "?$data")
+
+
 }
 

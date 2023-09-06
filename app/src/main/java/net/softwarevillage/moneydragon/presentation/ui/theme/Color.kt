@@ -14,6 +14,11 @@ val Gray87 = Color(0xFF878787)
 val White = Color(0xFFFFFFFF)
 
 val BlueCard = Color(0xFF8CD9E9)
+val GreenCard = Color(0xFF34A853)
+val RedCard = Color(0xFFE80B26)
+val BlackCard = Color(0xFF000000)
+val DarkBlueCard = Color(0xFF001A4D)
+val GrayCard = Color(0xFF979797B)
 
 val Blue = Color(0xFF5063BF)
 val Grey = Color(0xFF878787)

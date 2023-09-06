@@ -32,12 +32,15 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import net.softwarevillage.moneydragon.R
+import net.softwarevillage.moneydragon.common.toHexCode
+import net.softwarevillage.moneydragon.domain.model.CardUiModel
 import net.softwarevillage.moneydragon.presentation.navigation.Screen
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.CardFace
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.FlipCard
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.MainCardBackItem
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.MainCardFrontItem
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.RotationAxis
+import net.softwarevillage.moneydragon.presentation.ui.theme.BlueCard
 import net.softwarevillage.moneydragon.presentation.ui.theme.Gray87
 import net.softwarevillage.moneydragon.presentation.ui.theme.PurpleBF
 import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily
@@ -47,6 +50,7 @@ fun WalletScreen(
     onNavigate: (String) -> Unit,
 ) {
     val modifier = Modifier
+
 
     Surface(
         modifier = modifier.fillMaxSize()
@@ -152,6 +156,18 @@ fun CardAvailableComposable(
         mutableStateOf(CardFace.Front)
     }
 
+    val fakeData = CardUiModel(
+        holdersName = "a",
+        cardScheme = "A",
+        cardNumber = "0",
+        cvv = 1,
+        expiryDate = "a",
+        cardColor = BlueCard.toHexCode(),
+        balance = 0.0,
+        id = 1
+    )
+
+
     Column {
         FlipCard(
             cardFace = cardState.value,
@@ -166,7 +182,7 @@ fun CardAvailableComposable(
                 MainCardBackItem()
             },
             front = {
-                MainCardFrontItem()
+                MainCardFrontItem(cardUiModel = fakeData)
             }
         )
 

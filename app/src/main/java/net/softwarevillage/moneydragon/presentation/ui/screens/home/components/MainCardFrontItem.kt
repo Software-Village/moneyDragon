@@ -26,12 +26,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import net.softwarevillage.moneydragon.R
-import net.softwarevillage.moneydragon.presentation.ui.theme.BlueCard
+import net.softwarevillage.moneydragon.common.cardNumberHider
+import net.softwarevillage.moneydragon.common.toColor
+import net.softwarevillage.moneydragon.domain.model.CardUiModel
 import net.softwarevillage.moneydragon.presentation.ui.theme.White
 import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily
 
 @Composable
-fun MainCardFrontItem() {
+fun MainCardFrontItem(
+    cardUiModel: CardUiModel,
+) {
 
     val modifier = Modifier
 
@@ -41,7 +45,7 @@ fun MainCardFrontItem() {
             .height(190.dp),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
-            containerColor = BlueCard
+            containerColor = cardUiModel.cardColor.toColor()
         )
     ) {
         Box(
@@ -71,20 +75,13 @@ fun MainCardFrontItem() {
                     ) {
 
                     Text(
-                        text = "Anderson",
+                        text = cardUiModel.holdersName,
                         fontFamily = fontFamily,
                         fontWeight = FontWeight.Medium,
                         fontSize = 12.sp,
                         color = Color.White
                     )
 
-                    Text(
-                        text = "A debit card",
-                        fontFamily = fontFamily,
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 12.sp,
-                        color = Color.White
-                    )
 
                 }
 
@@ -93,7 +90,7 @@ fun MainCardFrontItem() {
 
 
                 Text(
-                    text = "**** **** **** 0000",
+                    text = cardNumberHider(cardUiModel.cardNumber),
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp,
@@ -123,7 +120,7 @@ fun MainCardFrontItem() {
 
 
                     Text(
-                        text = "$3333",
+                        text = "$${cardUiModel.balance}",
                         fontFamily = fontFamily,
                         fontWeight = FontWeight.Bold,
                         fontSize = 22.sp,
@@ -131,7 +128,7 @@ fun MainCardFrontItem() {
                     )
 
                     Text(
-                        text = stringResource(id = R.string.visa),
+                        text = cardUiModel.cardScheme,
                         fontFamily = fontFamily,
                         fontWeight = FontWeight.Medium,
                         fontSize = 12.sp,

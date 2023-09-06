@@ -14,6 +14,8 @@ sealed class Screen(
 
     object WelcomeScreen : Screen("welcomeScreen", name = R.string.welcome)
 
+    object CardColorScreen : Screen("cardColorScreen", name = R.string.cardColor)
+
     object AddCardScreen : Screen("addCardScreen", name = R.string.addCard)
 
 

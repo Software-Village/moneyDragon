@@ -36,6 +36,7 @@
     <string name="onboard3_title">Color Your Cards</string>
     <string name="create_user">Create User</string>
     <string name="set_profile">Please set up your profile</string>
+    <string name="cardColor">Card Color</string>
     <string name="enter_name">Enter your name</string>
     <string name="enter_surname">Enter your last name</string>
     <string name="set">Set</string>
@@ -54,6 +55,10 @@
     <string name="info">Info</string>
     <string name="term_use">Term of use</string>
     <string name="congrats">Congrats!</string>
+    <string name="empty_field">Fill the gaps.</string>
     <string name="account_register">Account Registed Successfully</string>
     <string name="great">Great</string>
+    <string name="short_card_number">Card number is too short!</string>
+    <string name="short_cvv">CVV number is too short.</string>
+    <string name="card_color_title">Please, select a color to differentiat this card from other cards you have attached and organize your cards better.</string>
 </resources>
