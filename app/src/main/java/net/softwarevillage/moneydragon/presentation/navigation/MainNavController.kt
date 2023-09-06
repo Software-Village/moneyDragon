@@ -21,6 +21,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.google.gson.GsonBuilder
+import net.softwarevillage.moneydragon.domain.model.CardFaceUiModel
 import net.softwarevillage.moneydragon.presentation.ui.screens.auth.CongratsScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.auth.CreateUserScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.auth.OnboardingScreen
@@ -31,6 +33,7 @@ import net.softwarevillage.moneydragon.presentation.ui.screens.home.HomeScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.profile.ProfileScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.WalletScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.addCard.AddCardScreen
+import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.cardColor.CardColorScreen
 import net.softwarevillage.moneydragon.presentation.ui.theme.PurpleBF
 
 @Composable
@@ -54,7 +57,8 @@ fun MainNavController() {
         Screen.AddCardScreen.route,
         Screen.WelcomeScreen.route,
         Screen.CreateUserScreen.route,
-        Screen.CongratsScreen.route
+        Screen.CongratsScreen.route,
+        Screen.CardColorScreen.route + "?{cardFaceUiModel}",
         -> false
 
         else -> true
@@ -98,7 +102,7 @@ fun MainNavController() {
     ) { innerPadding ->
         NavHost(
             navController,
-            startDestination = Screen.SplashScreen.route,
+            startDestination = Screen.HomeScreen.route,
             Modifier.padding(innerPadding)
         ) {
             composable(Screen.SplashScreen.route) {
@@ -106,6 +110,21 @@ fun MainNavController() {
                     navController.navigate(Screen.WelcomeScreen.route)
                 })
             }
+
+            composable(
+                route = Screen.CardColorScreen.route + "?{cardFaceUiModel}"
+            ) {
+
+                val gson = GsonBuilder().create()
+                val dataJson = it.arguments?.getString("cardFaceUiModel")
+
+                CardColorScreen(
+                    onBackPressed = { navController.popBackStack() },
+                    cardFaceUiModel = gson.fromJson(dataJson, CardFaceUiModel::class.java)
+                )
+
+            }
+
             composable(Screen.WelcomeScreen.route) {
                 WelcomeScreen(navigateOnboarding = {
                     navController.navigate(Screen.OnboardingScreen.route)
@@ -140,7 +159,7 @@ fun MainNavController() {
             composable(Screen.AddCardScreen.route) {
                 AddCardScreen(
                     onNavigate = {
-
+                        navController.navigate(it)
                     },
                     onBackNavigate = {
                         navController.popBackStack()

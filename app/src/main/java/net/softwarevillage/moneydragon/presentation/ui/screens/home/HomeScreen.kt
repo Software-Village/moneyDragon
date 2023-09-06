@@ -1,25 +1,18 @@
 package net.softwarevillage.moneydragon.presentation.ui.screens.home
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -28,13 +21,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import net.softwarevillage.moneydragon.R
+import net.softwarevillage.moneydragon.common.toHexCode
+import net.softwarevillage.moneydragon.domain.model.CardUiModel
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.BaseLazyHomeIncomingItem
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.BaseLazyHomeOutgoingItem
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.CardFace
@@ -42,6 +36,7 @@ import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.F
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.MainCardBackItem
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.MainCardFrontItem
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.RotationAxis
+import net.softwarevillage.moneydragon.presentation.ui.theme.BlueCard
 import net.softwarevillage.moneydragon.presentation.ui.theme.Gray87
 import net.softwarevillage.moneydragon.presentation.ui.theme.PurpleBF
 import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily
@@ -50,6 +45,17 @@ import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily
 fun HomeScreen(
 
 ) {
+
+    val fakeData = CardUiModel(
+        holdersName = "a",
+        cardScheme = "A",
+        cardNumber = "0",
+        cvv = 1,
+        expiryDate = "a",
+        cardColor = BlueCard.toHexCode(),
+        balance = 0.0,
+        id = 1
+    )
 
     val modifier = Modifier
 
@@ -132,7 +138,7 @@ fun HomeScreen(
                     MainCardBackItem()
                 },
                 front = {
-                    MainCardFrontItem()
+                    MainCardFrontItem(cardUiModel = fakeData)
                 }
             )
 
