@@ -29,6 +29,7 @@ import net.softwarevillage.moneydragon.presentation.ui.screens.auth.WelcomeScree
 import net.softwarevillage.moneydragon.presentation.ui.screens.chart.ChartScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.HomeScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.profile.ProfileScreen
+import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.HistoryScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.WalletScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.addCard.AddCardScreen
 import net.softwarevillage.moneydragon.presentation.ui.theme.PurpleBF
@@ -98,7 +99,7 @@ fun MainNavController() {
     ) { innerPadding ->
         NavHost(
             navController,
-            startDestination = Screen.SplashScreen.route,
+            startDestination = Screen.HistoryScreen.route,
             Modifier.padding(innerPadding)
         ) {
             composable(Screen.SplashScreen.route) {
@@ -150,6 +151,10 @@ fun MainNavController() {
 
             composable(Screen.CongratsScreen.route) {
                 CongratsScreen()
+            }
+
+            composable(route = Screen.HistoryScreen.route) {
+                HistoryScreen()
             }
         }
     }

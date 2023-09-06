@@ -56,4 +56,7 @@
     <string name="congrats">Congrats!</string>
     <string name="account_register">Account Registed Successfully</string>
     <string name="great">Great</string>
+    <string name="history">History</string>
+    <string name="may">May</string>
+    <string name="tickets">Tickets</string>
 </resources>
