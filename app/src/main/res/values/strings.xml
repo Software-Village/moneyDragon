@@ -61,4 +61,7 @@
     <string name="short_card_number">Card number is too short!</string>
     <string name="short_cvv">CVV number is too short.</string>
     <string name="card_color_title">Please, select a color to differentiat this card from other cards you have attached and organize your cards better.</string>
+    <string name="history">History</string>
+    <string name="may">May</string>
+    <string name="tickets">Tickets</string>
 </resources>
