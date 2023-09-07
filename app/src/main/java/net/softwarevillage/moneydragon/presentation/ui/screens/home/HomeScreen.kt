@@ -1,6 +1,7 @@
 package net.softwarevillage.moneydragon.presentation.ui.screens.home
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
@@ -29,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import net.softwarevillage.moneydragon.R
 import net.softwarevillage.moneydragon.common.toHexCode
 import net.softwarevillage.moneydragon.domain.model.CardUiModel
+import net.softwarevillage.moneydragon.domain.model.TransactionUiModel
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.BaseLazyHomeIncomingItem
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.BaseLazyHomeOutgoingItem
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.CardFace
@@ -36,6 +39,7 @@ import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.F
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.MainCardBackItem
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.MainCardFrontItem
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.RotationAxis
+import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.components.AccountMovementItem
 import net.softwarevillage.moneydragon.presentation.ui.theme.BlueCard
 import net.softwarevillage.moneydragon.presentation.ui.theme.Gray87
 import net.softwarevillage.moneydragon.presentation.ui.theme.PurpleBF
@@ -64,6 +68,47 @@ fun HomeScreen(
     val cardFace = remember {
         mutableStateOf(CardFace.Front)
     }
+
+    val transaction = listOf(
+        TransactionUiModel(
+            1,
+            2,
+            "fasfafasf",
+            "10:25",
+            "5.45",
+            1
+        ),
+        TransactionUiModel(
+            1,
+            2,
+            "fasfafasf",
+            "10:25",
+            "5.45",
+            1
+        ), TransactionUiModel(
+            1,
+            2,
+            "fasfafasf",
+            "10:25",
+            "5.45",
+            1
+        ), TransactionUiModel(
+            1,
+            2,
+            "fasfafasf",
+            "10:25",
+            "5.45",
+            2
+        ),
+        TransactionUiModel(
+            1,
+            2,
+            "fasfafasf",
+            "10:25",
+            "5.45",
+            2
+        )
+    )
 
     Surface(
         modifier = modifier
@@ -255,6 +300,18 @@ fun HomeScreen(
                 }
 
 
+            }
+
+            LazyRow {
+                items(transaction) {
+                    Box(
+                        modifier = modifier
+                            .fillParentMaxWidth()
+                            .padding(horizontal = 5.dp, vertical = 5.dp)
+                    ) {
+                        AccountMovementItem(transactionUiModel = it)
+                    }
+                }
             }
 
         }
