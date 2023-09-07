@@ -10,7 +10,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Surface
@@ -60,6 +62,8 @@ fun CardColorScreen(
 
         )
 
+    val scrollState = rememberScrollState()
+
 
     val cardDataState = remember {
 
@@ -81,7 +85,9 @@ fun CardColorScreen(
 
     val modifier = Modifier
 
-    Surface(modifier = modifier.fillMaxSize()) {
+    Surface(modifier = modifier
+        .fillMaxSize()
+        .verticalScroll(scrollState)) {
         Column(modifier = modifier.fillMaxSize()) {
 
             Box(
@@ -150,7 +156,9 @@ fun CardColorScreen(
             }
 
             Box(
-                modifier = modifier.fillMaxSize(),
+                modifier = modifier
+                    .padding(vertical = 30.dp)
+                    .fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
                 MainButton(title = R.string.confirm) {
