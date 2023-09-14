@@ -1,7 +1,6 @@
 package net.softwarevillage.moneydragon.presentation.ui.screens.wallet.addCard
 
 import android.content.Context
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -23,6 +22,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -40,7 +40,7 @@ import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.addCard.co
 import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.addCard.components.CvvTextInput
 import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.addCard.components.MonthPicker
 import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.addCard.components.identifyCardScheme
-import net.softwarevillage.moneydragon.presentation.ui.theme.Gray87
+import net.softwarevillage.moneydragon.presentation.ui.theme.Grey87
 import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily
 import java.util.Calendar
 
@@ -57,6 +57,10 @@ fun AddCardScreen(
 
     val pickerVisibility = remember {
         mutableStateOf(false)
+    }
+
+    val balance = remember {
+        mutableStateOf("")
     }
 
     val expiryDate = remember {
@@ -118,7 +122,7 @@ fun AddCardScreen(
                 fontSize = 15.sp,
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Normal,
-                color = Gray87
+                color = Grey87
             )
 
             Spacer(modifier = modifier.size(20.dp))
@@ -178,6 +182,19 @@ fun AddCardScreen(
 
             Spacer(modifier = modifier.size(12.dp))
 
+            MainTextInput(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 30.dp),
+                text = balance,
+                label = stringResource(id = R.string.balance),
+                singleLine = true,
+                action = ImeAction.Next,
+                type = KeyboardType.Decimal
+            )
+
+            Spacer(modifier = modifier.size(12.dp))
+
 
             CvvTextInput(
                 text = cvv,
@@ -200,7 +217,8 @@ fun AddCardScreen(
                             cvv = cvv.value,
                             holdersName = holdersName.value,
                             cardNumber = cardNumber.value,
-                            expiryDate = expiryDate.value
+                            expiryDate = expiryDate.value,
+                            balance = balance.value
                         )
                     },
                     title = R.string.confirm
@@ -217,9 +235,10 @@ private fun checkState(
     cvv: String,
     holdersName: String,
     cardNumber: String,
+    balance: String,
 ) {
 
-    if (!validateFields(listOf(expiryDate, cvv, holdersName, cardNumber))) {
+    if (!validateFields(listOf(expiryDate, cvv, holdersName, cardNumber, balance))) {
         Toast.makeText(context, R.string.empty_field, Toast.LENGTH_SHORT).show()
         return
     }
@@ -240,14 +259,11 @@ private fun checkState(
         cardNumber = cardNumber,
         cardScheme = identifyCardScheme(cardNumber).toString(),
         expiryDate = expiryDate,
-        cvv = cvv.toInt()
+        cvv = cvv.toInt(),
+        balance = balance.toDouble()
     )
 
-    Log.e("fortest", "main $cardNumber")
-
     val data = objectToJson(cardFaceUiModel)
-
-    Log.e("data", data)
 
     onNavigate(Screen.CardColorScreen.route + "?$data")
 

@@ -41,7 +41,7 @@ import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.M
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.RotationAxis
 import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.components.AccountMovementItem
 import net.softwarevillage.moneydragon.presentation.ui.theme.BlueCard
-import net.softwarevillage.moneydragon.presentation.ui.theme.Gray87
+import net.softwarevillage.moneydragon.presentation.ui.theme.Grey87
 import net.softwarevillage.moneydragon.presentation.ui.theme.PurpleBF
 import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily
 
@@ -154,7 +154,7 @@ fun HomeScreen(
                 text = stringResource(id = R.string.current_balance),
                 fontSize = 18.sp,
                 fontFamily = fontFamily,
-                color = Gray87,
+                color = Grey87,
                 fontWeight = FontWeight.Medium
             )
             Spacer(modifier = modifier.size(10.dp))
@@ -203,7 +203,7 @@ fun HomeScreen(
                     fontSize = 18.sp,
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Medium,
-                    color = Gray87
+                    color = Grey87
                 )
 
                 TextButton(onClick = { }) {
@@ -242,7 +242,7 @@ fun HomeScreen(
                     fontSize = 18.sp,
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Medium,
-                    color = Gray87
+                    color = Grey87
                 )
 
                 TextButton(onClick = { }) {
@@ -281,7 +281,7 @@ fun HomeScreen(
                     fontSize = 18.sp,
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Medium,
-                    color = Gray87
+                    color = Grey87
                 )
 
                 TextButton(onClick = { }) {

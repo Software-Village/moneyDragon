@@ -39,9 +39,9 @@ import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.M
 import net.softwarevillage.moneydragon.presentation.ui.theme.BlackCard
 import net.softwarevillage.moneydragon.presentation.ui.theme.BlueCard
 import net.softwarevillage.moneydragon.presentation.ui.theme.DarkBlueCard
-import net.softwarevillage.moneydragon.presentation.ui.theme.Gray87
-import net.softwarevillage.moneydragon.presentation.ui.theme.GrayCard
 import net.softwarevillage.moneydragon.presentation.ui.theme.GreenCard
+import net.softwarevillage.moneydragon.presentation.ui.theme.Grey87
+import net.softwarevillage.moneydragon.presentation.ui.theme.GreyCard
 import net.softwarevillage.moneydragon.presentation.ui.theme.RedCard
 import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily
 
@@ -56,7 +56,7 @@ fun CardColorScreen(
         BlueCard.toHexCode(),
         RedCard.toHexCode(),
         GreenCard.toHexCode(),
-        GrayCard.toHexCode(),
+        GreyCard.toHexCode(),
         DarkBlueCard.toHexCode(),
         BlackCard.toHexCode(),
 
@@ -75,7 +75,7 @@ fun CardColorScreen(
                 cvv = cardFaceUiModel.cvv,
                 expiryDate = cardFaceUiModel.expiryDate,
                 cardColor = BlueCard.toHexCode(),
-                balance = 0.0,
+                balance = cardFaceUiModel.balance,
                 id = 1
             )
         )
@@ -119,7 +119,7 @@ fun CardColorScreen(
                 fontSize = 15.sp,
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.W400,
-                color = Gray87
+                color = Grey87
             )
 
             Spacer(modifier = modifier.size(35.dp))

@@ -6,5 +6,6 @@ data class CardFaceUiModel(
     val cardScheme: String,
     val cardNumber: String,
     val expiryDate: String,
+    val balance: Double,
     val cvv: Int,
 )

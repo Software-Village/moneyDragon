@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import net.softwarevillage.moneydragon.R
 import net.softwarevillage.moneydragon.presentation.ui.components.BaseCircularImage
-import net.softwarevillage.moneydragon.presentation.ui.theme.Gray87
+import net.softwarevillage.moneydragon.presentation.ui.theme.Grey87
 import net.softwarevillage.moneydragon.presentation.ui.theme.PurpleBF
 import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily
 
@@ -78,7 +78,7 @@ fun BaseLazyHomeOutgoingItem(
                     fontFamily = fontFamily,
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Normal,
-                    color = Gray87
+                    color = Grey87
                 )
 
             }
@@ -97,7 +97,7 @@ fun BaseLazyHomeOutgoingItem(
                         size = 40.dp,
                         shape = 20.dp,
                         image = R.drawable.ic_launcher_background,
-                        border = BorderStroke(width = 0.5.dp, color = Gray87)
+                        border = BorderStroke(width = 0.5.dp, color = Grey87)
                     )
 
                     Column(
@@ -126,7 +126,7 @@ fun BaseLazyHomeOutgoingItem(
                     fontSize = 11.sp,
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Medium,
-                    color = Gray87,
+                    color = Grey87,
                 )
 
                 Text(

@@ -48,7 +48,7 @@ fun AccountMovementItem(
                 Box(
                     modifier = Modifier
                         .background(
-                            color = if (transactionUiModel.type == 1) Blue else BlueEB,
+                            color = if (transactionUiModel.type == 1) BlueEB else Blue,
                             shape = RoundedCornerShape(15.dp)
                         )
                         .padding(16.dp), contentAlignment = Alignment.Center
