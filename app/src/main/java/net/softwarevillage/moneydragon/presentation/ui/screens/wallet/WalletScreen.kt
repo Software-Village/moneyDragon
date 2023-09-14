@@ -41,7 +41,7 @@ import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.M
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.MainCardFrontItem
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.RotationAxis
 import net.softwarevillage.moneydragon.presentation.ui.theme.BlueCard
-import net.softwarevillage.moneydragon.presentation.ui.theme.Gray87
+import net.softwarevillage.moneydragon.presentation.ui.theme.Grey87
 import net.softwarevillage.moneydragon.presentation.ui.theme.PurpleBF
 import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily
 
@@ -194,7 +194,7 @@ fun CardAvailableComposable(
                 text = stringResource(id = R.string.transactions),
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.Normal,
-                color = Gray87,
+                color = Grey87,
                 fontSize = 18.sp
             )
         }
