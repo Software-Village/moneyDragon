@@ -26,8 +26,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import net.softwarevillage.moneydragon.R
-import net.softwarevillage.moneydragon.common.cardNumberHider
-import net.softwarevillage.moneydragon.common.toColor
+import net.softwarevillage.moneydragon.common.utils.cardNumberHider
+import net.softwarevillage.moneydragon.common.utils.toColor
 import net.softwarevillage.moneydragon.domain.model.CardUiModel
 import net.softwarevillage.moneydragon.presentation.ui.theme.White
 import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily

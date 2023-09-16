@@ -1,21 +1,21 @@
 package net.softwarevillage.moneydragon.di
 
-import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import net.softwarevillage.moneydragon.data.service.local.RoomDAO
 import net.softwarevillage.moneydragon.data.source.LocalDataSource
 import net.softwarevillage.moneydragon.data.source.LocalDataSourceImpl
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class DataSourceModule {
+object DataSourceModule {
 
-    @Binds
+    @Provides
     @Singleton
-    abstract fun bindRemoteDataSource(
-        remoteDataSourceImpl: LocalDataSourceImpl
-    ): LocalDataSource
+    fun injectDataSource(roomDAO: RoomDAO) = LocalDataSourceImpl(roomDAO) as LocalDataSource
+
 
 }
