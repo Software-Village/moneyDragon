@@ -1,19 +1,20 @@
 package net.softwarevillage.moneydragon.di
 
-import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import net.softwarevillage.moneydragon.data.repository.MoneyRepositoryImpl
-import net.softwarevillage.moneydragon.domain.repository.MoneyRepository
+import net.softwarevillage.moneydragon.data.repository.LocalRepositoryImpl
+import net.softwarevillage.moneydragon.data.source.LocalDataSource
+import net.softwarevillage.moneydragon.domain.repository.LocalRepository
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class RepositoryModule {
+object RepositoryModule {
 
-    @Binds
+    @Provides
     @Singleton
-    abstract fun provideRepositoryModule(repositoryImpl: MoneyRepositoryImpl): MoneyRepository
+    fun injectRepo(source: LocalDataSource) = LocalRepositoryImpl(source) as LocalRepository
 
 }

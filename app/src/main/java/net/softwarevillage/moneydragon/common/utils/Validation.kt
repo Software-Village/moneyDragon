@@ -1,4 +1,4 @@
-package net.softwarevillage.moneydragon.common
+package net.softwarevillage.moneydragon.common.utils
 
 
 fun validateFields(value: List<String>): Boolean {

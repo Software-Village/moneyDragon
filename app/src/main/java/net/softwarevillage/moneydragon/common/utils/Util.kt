@@ -1,4 +1,4 @@
-package net.softwarevillage.moneydragon.common
+package net.softwarevillage.moneydragon.common.utils
 
 import co.yml.charts.common.model.Point
 import co.yml.charts.ui.barchart.models.BarData

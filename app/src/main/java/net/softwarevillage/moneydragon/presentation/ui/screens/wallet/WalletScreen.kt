@@ -32,7 +32,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import net.softwarevillage.moneydragon.R
-import net.softwarevillage.moneydragon.common.toHexCode
+import net.softwarevillage.moneydragon.common.utils.toHexCode
 import net.softwarevillage.moneydragon.domain.model.CardUiModel
 import net.softwarevillage.moneydragon.presentation.navigation.Screen
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.CardFace
