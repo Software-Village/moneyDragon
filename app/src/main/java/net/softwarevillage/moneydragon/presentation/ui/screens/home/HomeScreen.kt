@@ -1,7 +1,5 @@
 package net.softwarevillage.moneydragon.presentation.ui.screens.home
 
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,13 +23,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import net.softwarevillage.moneydragon.R
 import net.softwarevillage.moneydragon.common.utils.toHexCode
 import net.softwarevillage.moneydragon.domain.model.CardUiModel
@@ -50,12 +46,8 @@ import net.softwarevillage.moneydragon.presentation.ui.theme.PurpleBF
 import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily
 
 @Composable
-fun HomeScreen(
-    viewModel: HomeViewModel = hiltViewModel(),
-) {
+fun HomeScreen() {
 
-
-    val state = viewModel.getCurrentState()
 
     val fakeData = CardUiModel(
         holdersName = "a",
@@ -125,7 +117,6 @@ fun HomeScreen(
         Column(
             modifier = modifier.fillMaxSize()
         ) {
-            StateCheck(state = state)
             Spacer(modifier = modifier.size(24.dp))
 
             Row(
@@ -326,19 +317,4 @@ fun HomeScreen(
 
 }
 
-@Composable
-fun StateCheck(state: HomeViewModel.HomeState) {
-    val context = LocalContext.current
-    when (state) {
-        is HomeViewModel.HomeState.CardDetails -> Log.e("datass", state.cardUiModel.toString())
-        is HomeViewModel.HomeState.Error -> Toast.makeText(
-            context,
-            state.message,
-            Toast.LENGTH_SHORT
-        ).show()
-
-        HomeViewModel.HomeState.Loading -> Unit
-        is HomeViewModel.HomeState.Transactions -> Log.e("datass", state.transactions.toString())
-    }
-}
 

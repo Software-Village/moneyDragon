@@ -72,4 +72,15 @@
     <string name="income">Income</string>
     <string name="expense">Expense</string>
     <string name="tickets">Tickets</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="login">Log in</string>
+    <string name="email">Email Address</string>
+    <string name="password">Password</string>
+    <string name="re_password">Confirm Password</string>
+    <string name="or">OR</string>
+    <string name="have_account">Don’t have an account?</string>
+    <string name="sign_up_bottom">Sign Up</string>
+    <string name="already_account">Already have an account?</string>
+    <string name="register">Register</string>
+    <string name="password_match">Passwords do not match</string>
 </resources>

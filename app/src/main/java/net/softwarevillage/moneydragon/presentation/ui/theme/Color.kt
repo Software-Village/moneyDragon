@@ -20,8 +20,10 @@ val BlackCard = Color(0xFF000000)
 val DarkBlueCard = Color(0xFF001A4D)
 val GreyCard = Color(0xFF979797B)
 
+val GreyB1 = Color(0xFFB1B1B1)
+val GreyEE = Color(0xFFEEEEEE)
+
 val Blue = Color(0xFF5063BF)
-val Grey = Color(0xFF878787)
 val LightBlue = Color(0xFF8EDFEB)
 val Black = Color(0xFF1E1E1E)
 val GreyText = Color(0xFFC4C4C4)

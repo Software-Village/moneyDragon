@@ -26,6 +26,10 @@ sealed class Screen(
 
     object HistoryScreen : Screen(route = "historyScreen", name = R.string.history)
 
+    object LoginScreen : Screen(route = "loginScreen", name = R.string.login)
+
+    object RegisterScreen : Screen("routeScreen", name = R.string.register)
+
 
     //BOTTOM NAVIGATION
     object WalletScreen :

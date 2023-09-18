@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.sp
 import net.softwarevillage.moneydragon.R
 import net.softwarevillage.moneydragon.presentation.ui.components.MainButton
 import net.softwarevillage.moneydragon.presentation.ui.theme.Blue
-import net.softwarevillage.moneydragon.presentation.ui.theme.Grey
+import net.softwarevillage.moneydragon.presentation.ui.theme.Grey87
 
 @Composable
 fun WelcomeScreen(
@@ -55,7 +55,7 @@ fun WelcomeScreen(
                 fontWeight = FontWeight.W700
             )
             Spacer(modifier = Modifier.height(24.dp))
-            Text(text = stringResource(id = R.string.splash_title), color = Grey)
+            Text(text = stringResource(id = R.string.splash_title), color = Grey87)
         }
         Row(
             modifier = Modifier
