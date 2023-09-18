@@ -7,6 +7,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -16,8 +17,9 @@ import net.softwarevillage.moneydragon.presentation.ui.theme.Blue
 
 @Composable
 fun MainButton(
+    modifier: Modifier = Modifier,
     @StringRes title: Int,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Button(
         onClick = onClick,
@@ -26,7 +28,8 @@ fun MainButton(
             contentColor = Color.White
         ),
         shape = RoundedCornerShape(20.dp),
-        contentPadding = PaddingValues(horizontal = 24.dp, vertical = 14.dp)
+        contentPadding = PaddingValues(horizontal = 24.dp, vertical = 14.dp),
+        modifier = modifier
     ) {
         Text(text = stringResource(id = title), fontSize = 22.sp, fontWeight = FontWeight.W600)
     }

@@ -141,7 +141,7 @@ fun AddCardScreen(
 
             MainTextInput(
                 text = holdersName,
-                label = stringResource(id = R.string.holders_name),
+                label = R.string.holders_name,
                 action = ImeAction.Next,
                 singleLine = true,
                 modifier = modifier
@@ -171,7 +171,7 @@ fun AddCardScreen(
             MainTextInput(
                 text = expiryDate,
                 enabled = false,
-                label = stringResource(id = R.string.expiry_date),
+                label = R.string.expiry_date,
                 modifier = modifier
                     .fillMaxWidth()
                     .padding(horizontal = 30.dp)
@@ -187,7 +187,7 @@ fun AddCardScreen(
                     .fillMaxWidth()
                     .padding(horizontal = 30.dp),
                 text = balance,
-                label = stringResource(id = R.string.balance),
+                label = R.string.balance,
                 singleLine = true,
                 action = ImeAction.Next,
                 type = KeyboardType.Decimal

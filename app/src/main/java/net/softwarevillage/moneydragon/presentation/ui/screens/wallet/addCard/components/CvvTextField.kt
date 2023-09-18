@@ -13,18 +13,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import net.softwarevillage.moneydragon.presentation.ui.theme.Blue
-import net.softwarevillage.moneydragon.presentation.ui.theme.Grey
+import net.softwarevillage.moneydragon.presentation.ui.theme.Grey87
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CvvTextInput(
+    modifier: Modifier = Modifier,
     text: MutableState<String>,
     label: String,
     singleLine: Boolean = false,
     action: ImeAction = ImeAction.Default,
     type: KeyboardType = KeyboardType.NumberPassword,
     enabled: Boolean = true,
-    modifier: Modifier = Modifier,
 ) {
     TextField(
         value = text.value,
@@ -35,14 +35,14 @@ fun CvvTextInput(
         enabled = enabled,
         colors = TextFieldDefaults.colors(
             focusedLabelColor = Blue,
-            unfocusedLabelColor = Grey,
+            unfocusedLabelColor = Grey87,
             focusedIndicatorColor = Blue,
-            unfocusedIndicatorColor = Grey,
+            unfocusedIndicatorColor = Grey87,
             cursorColor = Blue,
             unfocusedContainerColor = Color.Transparent,
             focusedContainerColor = Color.Transparent,
             disabledContainerColor = Color.Transparent,
-            disabledLabelColor = Grey,
+            disabledLabelColor = Grey87,
             disabledTextColor = Color.Black
 
 

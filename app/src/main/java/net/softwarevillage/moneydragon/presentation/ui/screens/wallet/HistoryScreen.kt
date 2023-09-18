@@ -29,7 +29,7 @@ import net.softwarevillage.moneydragon.presentation.ui.components.NavigationButt
 import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.components.AccountMovementItem
 import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.components.TransactionItem
 import net.softwarevillage.moneydragon.presentation.ui.theme.Black
-import net.softwarevillage.moneydragon.presentation.ui.theme.Grey
+import net.softwarevillage.moneydragon.presentation.ui.theme.Grey87
 import net.softwarevillage.moneydragon.presentation.ui.theme.LightBlue
 import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily
 
@@ -100,7 +100,7 @@ fun HistoryScreen() {
         Column(modifier = Modifier.padding(horizontal = 22.dp)) {
             Text(
                 text = stringResource(id = R.string.date),
-                color = Grey,
+                color = Grey87,
                 fontSize = 18.sp,
                 fontFamily = fontFamily,
                 fontWeight = FontWeight.W500

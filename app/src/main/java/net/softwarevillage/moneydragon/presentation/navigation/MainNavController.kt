@@ -25,7 +25,9 @@ import com.google.gson.GsonBuilder
 import net.softwarevillage.moneydragon.domain.model.CardFaceUiModel
 import net.softwarevillage.moneydragon.presentation.ui.screens.auth.CongratsScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.auth.CreateUserScreen
+import net.softwarevillage.moneydragon.presentation.ui.screens.auth.LoginScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.auth.OnboardingScreen
+import net.softwarevillage.moneydragon.presentation.ui.screens.auth.RegisterScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.auth.SplashScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.auth.WelcomeScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.chart.ChartScreen
@@ -60,6 +62,8 @@ fun MainNavController() {
         Screen.CreateUserScreen.route,
         Screen.CongratsScreen.route,
         Screen.CardColorScreen.route + "?{cardFaceUiModel}",
+        Screen.LoginScreen.route,
+        Screen.RegisterScreen.route,
         -> false
 
         else -> true
@@ -103,7 +107,7 @@ fun MainNavController() {
     ) { innerPadding ->
         NavHost(
             navController,
-            startDestination = Screen.ChartScreen.route,
+            startDestination = Screen.SplashScreen.route,
             Modifier.padding(innerPadding)
         ) {
             composable(Screen.SplashScreen.route) {
@@ -133,7 +137,7 @@ fun MainNavController() {
             }
             composable(Screen.OnboardingScreen.route) {
                 OnboardingScreen(navigateLogin = {
-                    navController.navigate(Screen.CreateUserScreen.route)
+                    navController.navigate(Screen.LoginScreen.route)
                 })
             }
             composable(Screen.HomeScreen.route) {
@@ -174,6 +178,18 @@ fun MainNavController() {
 
             composable(route = Screen.HistoryScreen.route) {
                 HistoryScreen()
+            }
+
+            composable(route = Screen.LoginScreen.route) {
+                LoginScreen(navigateRegister = {
+                    navController.navigate(Screen.RegisterScreen.route)
+                })
+            }
+
+            composable(route = Screen.RegisterScreen.route) {
+                RegisterScreen(navigateLogin = {
+                    navController.popBackStack()
+                })
             }
         }
     }

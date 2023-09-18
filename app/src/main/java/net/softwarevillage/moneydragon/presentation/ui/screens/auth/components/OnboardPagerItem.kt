@@ -16,7 +16,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import net.softwarevillage.moneydragon.domain.model.OnboardingPageUiModel
-import net.softwarevillage.moneydragon.presentation.ui.theme.Grey
+import net.softwarevillage.moneydragon.presentation.ui.theme.Grey87
+
 
 @Composable
 fun OnboardPagerItem(onboardingPageUiModel: OnboardingPageUiModel) {
@@ -36,7 +37,7 @@ fun OnboardPagerItem(onboardingPageUiModel: OnboardingPageUiModel) {
         Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = stringResource(id = onboardingPageUiModel.description),
-            color = Grey,
+            color = Grey87,
             textAlign = TextAlign.Center
         )
     }

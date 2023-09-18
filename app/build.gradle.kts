@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
+    id("com.google.gms.google-services")
 
 }
 
@@ -54,6 +55,7 @@ android {
 
 dependencies {
 
+    implementation("com.google.firebase:firebase-auth-ktx:22.1.2")
     val nav_version = "2.6.0"
     val lifecycleVersion = "2.6.1"
     val room_version = "2.5.2"

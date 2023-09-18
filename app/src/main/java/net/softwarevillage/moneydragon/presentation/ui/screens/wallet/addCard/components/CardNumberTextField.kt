@@ -13,11 +13,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import net.softwarevillage.moneydragon.R
 import net.softwarevillage.moneydragon.presentation.ui.theme.Blue
-import net.softwarevillage.moneydragon.presentation.ui.theme.Grey
+import net.softwarevillage.moneydragon.presentation.ui.theme.Grey87
 
 @Composable
 fun CardNumberTextField(
@@ -44,7 +43,7 @@ fun CardNumberTextField(
             keyboardType = KeyboardType.NumberPassword,
             imeAction = action
         ),
-        visualTransformation = VisualTransformation { number ->
+        visualTransformation = { number ->
             when (identifyCardScheme(cardNumber.value)) {
                 CardScheme.AMEX -> formatAmex(number)
                 CardScheme.DINERS_CLUB -> formatDinnersClub(number)
@@ -76,9 +75,9 @@ fun CardNumberTextField(
         },
         colors = TextFieldDefaults.colors(
             focusedLabelColor = Blue,
-            unfocusedLabelColor = Grey,
+            unfocusedLabelColor = Grey87,
             focusedIndicatorColor = Blue,
-            unfocusedIndicatorColor = Grey,
+            unfocusedIndicatorColor = Grey87,
             cursorColor = Blue,
             unfocusedContainerColor = Color.Transparent,
             focusedContainerColor = Color.Transparent,

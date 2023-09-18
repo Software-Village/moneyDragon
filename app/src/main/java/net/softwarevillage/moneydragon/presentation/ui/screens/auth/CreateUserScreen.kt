@@ -101,13 +101,15 @@ fun CreateUserScreen(
                 shape = RoundedCornerShape(100),
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             ) {
-                Box(modifier = Modifier
-                    .size(130.dp)
-                    .clickable {
-                        photoPicker.launch(
-                            PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-                        )
-                    }, contentAlignment = Alignment.Center) {
+                Box(
+                    modifier = Modifier
+                        .size(130.dp)
+                        .clickable {
+                            photoPicker.launch(
+                                PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                            )
+                        }, contentAlignment = Alignment.Center
+                ) {
                     if (imageUri.value == null) {
                         Icon(
                             painter = painterResource(id = R.drawable.upload),
@@ -131,12 +133,12 @@ fun CreateUserScreen(
         ) {
             MainTextInput(
                 text = name,
-                label = stringResource(id = R.string.enter_name),
+                label = R.string.enter_name,
                 action = ImeAction.Next
             )
             MainTextInput(
                 text = surname,
-                label = stringResource(id = R.string.enter_surname),
+                label = R.string.enter_surname,
                 action = ImeAction.Done
             )
         }
