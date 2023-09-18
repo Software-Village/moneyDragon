@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -54,6 +55,7 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
 
+    val mainHorizontalPadding = 20.dp
 
     val state = viewModel.getCurrentState()
 
@@ -130,7 +132,7 @@ fun HomeScreen(
 
             Row(
                 modifier = modifier
-                    .padding(horizontal = 30.dp)
+                    .padding(horizontal = mainHorizontalPadding)
                     .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
@@ -157,7 +159,7 @@ fun HomeScreen(
 
             Spacer(modifier = modifier.size(24.dp))
             Text(
-                modifier = modifier.padding(horizontal = 35.dp),
+                modifier = modifier.padding(horizontal = mainHorizontalPadding),
                 text = stringResource(id = R.string.current_balance),
                 fontSize = 18.sp,
                 fontFamily = fontFamily,
@@ -167,7 +169,7 @@ fun HomeScreen(
             Spacer(modifier = modifier.size(10.dp))
             Text(
                 text = "$23,231,233",
-                modifier = modifier.padding(horizontal = 35.dp),
+                modifier = modifier.padding(horizontal = mainHorizontalPadding),
                 fontSize = 35.sp,
                 color = PurpleBF,
                 fontFamily = fontFamily,
@@ -181,7 +183,7 @@ fun HomeScreen(
                 cardFace = cardFace.value,
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(vertical = 15.dp, horizontal = 15.dp),
+                    .padding(vertical = 15.dp, horizontal = mainHorizontalPadding),
                 onClick = {
                     cardFace.value = cardFace.value.next
                 },
@@ -201,7 +203,7 @@ fun HomeScreen(
             Row(
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(start = 35.dp, end = 20.dp),
+                    .padding(horizontal = mainHorizontalPadding),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -231,7 +233,9 @@ fun HomeScreen(
 
             }
 
-            LazyRow {
+            LazyRow(
+                contentPadding = PaddingValues(horizontal = mainHorizontalPadding)
+            ) {
                 items(count = 5) {
                     BaseLazyHomeIncomingItem()
                 }
@@ -240,7 +244,7 @@ fun HomeScreen(
             Row(
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(start = 35.dp, end = 20.dp),
+                    .padding(horizontal = mainHorizontalPadding),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -270,7 +274,9 @@ fun HomeScreen(
 
             }
 
-            LazyRow {
+            LazyRow(
+                contentPadding = PaddingValues(horizontal = mainHorizontalPadding)
+            ) {
                 items(count = 5) {
                     BaseLazyHomeOutgoingItem()
                 }
@@ -279,7 +285,7 @@ fun HomeScreen(
             Row(
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(start = 35.dp, end = 20.dp),
+                    .padding(horizontal = mainHorizontalPadding),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -309,12 +315,14 @@ fun HomeScreen(
 
             }
 
-            LazyRow {
+            LazyRow(
+                contentPadding = PaddingValues(horizontal = 15.dp)
+            ) {
                 items(transaction) {
                     Box(
                         modifier = modifier
                             .fillParentMaxWidth()
-                            .padding(horizontal = 5.dp, vertical = 5.dp)
+                            .padding(vertical = 5.dp)
                     ) {
                         AccountMovementItem(transactionUiModel = it)
                     }

@@ -44,7 +44,8 @@ fun BaseLazyHomeOutgoingItem(
 
     Card(
         modifier = modifier
-            .padding(horizontal = 10.dp, vertical = 10.dp)
+            .padding(vertical = 10.dp)
+            .padding(end = 10.dp)
             .width(160.dp)
             .height(200.dp),
         onClick = {
