@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.launch
 import net.softwarevillage.moneydragon.R
 import net.softwarevillage.moneydragon.domain.model.OnboardingPageUiModel
@@ -33,7 +34,8 @@ import net.softwarevillage.moneydragon.presentation.ui.theme.LightBlue
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun OnboardingScreen(
-    navigateLogin: () -> Unit
+    navigateLogin: () -> Unit,
+    viewModel: AuthViewModel = hiltViewModel()
 ) {
 
     val pagerState = rememberPagerState()
@@ -99,6 +101,7 @@ fun OnboardingScreen(
                 scope.launch {
                     if (pagerState.currentPage == 2) {
                         navigateLogin.invoke()
+                        viewModel.setEvent(AuthEvent.OnboardComplete)
                     } else {
                         pagerState.animateScrollToPage(pagerState.currentPage + 1)
                     }

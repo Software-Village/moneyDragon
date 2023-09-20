@@ -19,18 +19,36 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.delay
 import net.softwarevillage.moneydragon.R
 import net.softwarevillage.moneydragon.presentation.ui.theme.Blue
 
 @Composable
 fun SplashScreen(
-    navigateHome: () -> Unit
+    navigateLogin: () -> Unit,
+    navigateHome: () -> Unit,
+    viewModel: AuthViewModel = hiltViewModel()
 ) {
 
-    LaunchedEffect(key1 = true) {
-        delay(2500)
-        navigateHome.invoke()
+    val effect = viewModel.effect.collectAsStateWithLifecycle(null)
+
+    LaunchedEffect(key1 = effect.value) {
+        viewModel.getOnboardComplete()
+        when (effect.value) {
+            is AuthEffect.CompletedOnboarding -> {
+                val onboardState = effect.value as AuthEffect.CompletedOnboarding
+                delay(2500)
+                if (onboardState.isCompleted) {
+                    navigateHome.invoke()
+                } else {
+                    navigateLogin.invoke()
+                }
+            }
+
+            else -> {}
+        }
     }
 
     Column(

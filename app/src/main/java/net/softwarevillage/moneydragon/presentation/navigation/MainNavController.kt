@@ -112,6 +112,8 @@ fun MainNavController() {
         ) {
             composable(Screen.SplashScreen.route) {
                 SplashScreen(navigateHome = {
+                    navController.navigate(Screen.LoginScreen.route)
+                }, navigateLogin = {
                     navController.navigate(Screen.WelcomeScreen.route)
                 })
             }

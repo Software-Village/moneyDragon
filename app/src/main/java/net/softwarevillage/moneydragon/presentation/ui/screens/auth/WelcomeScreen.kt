@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import net.softwarevillage.moneydragon.R
 import net.softwarevillage.moneydragon.presentation.ui.components.MainButton
 import net.softwarevillage.moneydragon.presentation.ui.theme.Blue
@@ -27,8 +28,12 @@ import net.softwarevillage.moneydragon.presentation.ui.theme.Grey87
 
 @Composable
 fun WelcomeScreen(
-    navigateOnboarding: () -> Unit
+    navigateOnboarding: () -> Unit,
+    viewModel: AuthViewModel = hiltViewModel()
 ) {
+
+    viewModel.getOnboardComplete()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
