@@ -2,6 +2,7 @@ package net.softwarevillage.moneydragon.presentation.ui.components
 
 import androidx.annotation.RawRes
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,7 +17,7 @@ fun MainLottie(showState: Boolean, @RawRes res: Int, modifier: Modifier = Modifi
     val composition = rememberLottieComposition(LottieCompositionSpec.RawRes(res))
 
     if (showState) {
-        Box(contentAlignment = Alignment.Center) {
+        Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
             LottieAnimation(
                 composition = composition.value,
                 modifier = modifier,

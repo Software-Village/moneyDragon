@@ -1,6 +1,5 @@
 package net.softwarevillage.moneydragon.presentation.ui.screens.home
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,7 +20,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -40,7 +38,6 @@ import net.softwarevillage.moneydragon.domain.model.CardUiModel
 import net.softwarevillage.moneydragon.domain.model.TransactionUiModel
 import net.softwarevillage.moneydragon.presentation.navigation.Screen
 import net.softwarevillage.moneydragon.presentation.ui.components.MainButton
-import net.softwarevillage.moneydragon.presentation.ui.components.MainLoading
 import net.softwarevillage.moneydragon.presentation.ui.components.MainLottie
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.BaseLazyHomeIncomingItem
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.BaseLazyHomeOutgoingItem
@@ -115,25 +112,6 @@ fun HomeScreen(
             2
         )
     )
-
-
-    LaunchedEffect(key1 = state.value) {
-        when (state.value) {
-            HomeUiState.Error -> {
-                when (effect.value) {
-                    is HomeEffect.ShowMessage -> {
-                        val effectValue = effect.value as HomeEffect.ShowMessage
-                        Toast.makeText(context, effectValue.message, Toast.LENGTH_SHORT).show()
-                    }
-
-                    else -> Unit
-                }
-            }
-
-            else -> Unit
-        }
-
-    }
 
     Surface(
         modifier = modifier
@@ -212,35 +190,21 @@ fun HomeScreen(
 
             }
 
-            when (state.value) {
-                is HomeUiState.IsTransactionHave -> {
-                    val stateValue = state.value as HomeUiState.IsTransactionHave
-                    if (stateValue.isHave) {
-                        LazyRow(
-                            contentPadding = PaddingValues(horizontal = mainHorizontalPadding)
-                        ) {
-                            items(count = 5) {
-                                BaseLazyHomeIncomingItem()
-                            }
-                        }
-                    } else {
-                        Box(
-                            modifier = modifier.fillMaxWidth(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            MainLottie(
-                                showState = true,
-                                res = R.raw.lottie_empty_state_anim,
-                                modifier = modifier.size(200.dp)
-                            )
-                        }
+            if (state.value.isHave) {
+                LazyRow(
+                    contentPadding = PaddingValues(horizontal = mainHorizontalPadding)
+                ) {
+                    items(count = 5) {
+                        BaseLazyHomeIncomingItem()
                     }
                 }
-
-                HomeUiState.Loading -> MainLoading()
-                else -> Unit
+            } else {
+                MainLottie(
+                    showState = true,
+                    res = R.raw.lottie_empty_state_anim,
+                    modifier = modifier.size(200.dp)
+                )
             }
-
 
             Row(
                 modifier = modifier
@@ -275,35 +239,27 @@ fun HomeScreen(
 
             }
 
-            when (state.value) {
-                is HomeUiState.IsTransactionHave -> {
-                    val stateValue = state.value as HomeUiState.IsTransactionHave
-                    if (stateValue.isHave) {
-                        LazyRow(
-                            contentPadding = PaddingValues(horizontal = mainHorizontalPadding)
-                        ) {
-                            items(count = 5) {
-                                BaseLazyHomeOutgoingItem()
-                            }
-                        }
-                    } else {
-                        Box(
-                            modifier = modifier.fillMaxWidth(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            MainLottie(
-                                showState = true,
-                                res = R.raw.lottie_empty_state_anim,
-                                modifier = modifier.size(200.dp)
-                            )
-                        }
+            if (state.value.isHave) {
+                LazyRow(
+                    contentPadding = PaddingValues(horizontal = mainHorizontalPadding)
+                ) {
+                    items(count = 5) {
+                        BaseLazyHomeOutgoingItem()
                     }
-
                 }
-
-                HomeUiState.Loading -> MainLoading()
-                else -> Unit
+            } else {
+                Box(
+                    modifier = modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    MainLottie(
+                        showState = true,
+                        res = R.raw.lottie_empty_state_anim,
+                        modifier = modifier.size(200.dp)
+                    )
+                }
             }
+
 
             Row(
                 modifier = modifier
@@ -337,39 +293,32 @@ fun HomeScreen(
 
 
             }
-            when (state.value) {
-                is HomeUiState.IsCardRegistered -> {
-                    val stateValue = state.value as HomeUiState.IsCardRegistered
-                    if (stateValue.isRegistered) {
-                        LazyRow(
-                            contentPadding = PaddingValues(horizontal = 15.dp)
-                        ) {
-                            items(transaction) {
-                                Box(
-                                    modifier = modifier
-                                        .fillParentMaxWidth()
-                                        .padding(vertical = 5.dp)
-                                ) {
-                                    AccountMovementItem(transactionUiModel = it)
-                                }
-                            }
-                        }
-                    } else {
+
+            if (state.value.isRegistered) {
+                LazyRow(
+                    contentPadding = PaddingValues(horizontal = 15.dp)
+                ) {
+                    items(transaction) {
                         Box(
-                            modifier = modifier.fillMaxWidth(),
-                            contentAlignment = Alignment.Center
+                            modifier = modifier
+                                .fillParentMaxWidth()
+                                .padding(vertical = 5.dp)
                         ) {
-                            MainLottie(
-                                showState = true,
-                                res = R.raw.lottie_empty_state_anim,
-                                modifier = modifier.size(200.dp)
-                            )
+                            AccountMovementItem(transactionUiModel = it)
                         }
                     }
                 }
-
-                HomeUiState.Loading -> MainLoading()
-                else -> Unit
+            } else {
+                Box(
+                    modifier = modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    MainLottie(
+                        showState = true,
+                        res = R.raw.lottie_empty_state_anim,
+                        modifier = modifier.size(200.dp)
+                    )
+                }
             }
 
 
@@ -401,38 +350,28 @@ fun HomeCardStateCheck(
     }
 
 
-    when (state) {
-        is HomeUiState.CardData -> cardUiModel.value = state.cardUiModel
-        is HomeUiState.IsCardRegistered -> {
-            if (state.isRegistered) {
-                CardUI(cardUiModel = cardUiModel.value)
-            } else {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.register_card),
-                        fontSize = 18.sp,
-                        fontFamily = fontFamily,
-                        color = Black,
-                        fontWeight = FontWeight.Medium,
-                    )
-                    Spacer(modifier = Modifier.size(20.dp))
-                    MainButton(title = R.string.add_card) {
-                        onNavigate(Screen.AddCardScreen.route)
-                    }
-
-                }
+    if (state.isRegistered) {
+        CardUI(cardUiModel = cardUiModel.value)
+    } else {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = stringResource(id = R.string.register_card),
+                fontSize = 18.sp,
+                fontFamily = fontFamily,
+                color = Black,
+                fontWeight = FontWeight.Medium,
+            )
+            Spacer(modifier = Modifier.size(20.dp))
+            MainButton(title = R.string.add_card) {
+                onNavigate(Screen.AddCardScreen.route)
             }
 
         }
-
-        HomeUiState.Loading -> MainLottie(showState = true, res = R.raw.loading)
-        else -> Unit
     }
-
 }
 
 

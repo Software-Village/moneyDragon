@@ -33,7 +33,6 @@ import net.softwarevillage.moneydragon.common.utils.toColor
 import net.softwarevillage.moneydragon.common.utils.toHexCode
 import net.softwarevillage.moneydragon.domain.model.CardFaceUiModel
 import net.softwarevillage.moneydragon.domain.model.CardUiModel
-import net.softwarevillage.moneydragon.presentation.ui.components.MainAlertDialog
 import net.softwarevillage.moneydragon.presentation.ui.components.MainButton
 import net.softwarevillage.moneydragon.presentation.ui.components.NavigationButton
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.MainCardFrontItem
@@ -95,7 +94,7 @@ fun CardColorScreen(
     ) {
         Column(modifier = modifier.fillMaxSize()) {
             if (alertState.value) {
-                MainAlertDialog(
+             /*   MainAlertDialog(
                     title = stringResource(id = R.string.attention),
                     text = stringResource(id = R.string.areYouSure),
                     onDismissListener = {
@@ -103,7 +102,7 @@ fun CardColorScreen(
                     }, onConfirmListener = {
                         alertState.value = false
 
-                    })
+                    })*/
             }
             Box(
                 modifier = modifier

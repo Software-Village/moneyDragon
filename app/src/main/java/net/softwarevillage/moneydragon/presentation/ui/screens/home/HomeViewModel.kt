@@ -7,7 +7,6 @@ import net.softwarevillage.moneydragon.common.base.BaseViewModel
 import net.softwarevillage.moneydragon.common.base.Effect
 import net.softwarevillage.moneydragon.common.base.Event
 import net.softwarevillage.moneydragon.common.base.State
-import net.softwarevillage.moneydragon.domain.model.CardUiModel
 import net.softwarevillage.moneydragon.domain.useCase.local.GetLocalDataUseCase
 import javax.inject.Inject
 
@@ -18,12 +17,11 @@ class HomeViewModel @Inject constructor(
 
 
     init {
-
         isCardRegistered()
         isTransactionHave()
     }
 
-    override fun setInitialState(): HomeUiState = HomeUiState.Loading
+    override fun setInitialState(): HomeUiState = HomeUiState()
 
     override fun handleEvent(event: HomeEvent) {
         when (event) {
@@ -37,14 +35,14 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             getLocalDataUseCase.isCardRegistered().handleResult(
                 onLoading = {
-                    setState(HomeUiState.Loading)
+                    setState(HomeUiState())
                 },
                 onError = {
+                    setState(HomeUiState(isLoading = false))
                     setEffect(HomeEffect.ShowMessage(it.localizedMessage as String))
-                    setState(HomeUiState.Error)
                 },
                 onComplete = {
-                    setState(HomeUiState.IsCardRegistered(it))
+                    setState(getCurrentState().copy(isLoading = false, isRegistered = it))
                 }
             )
         }
@@ -54,14 +52,14 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             getLocalDataUseCase.isTransactionHave().handleResult(
                 onComplete = {
-                    setState(HomeUiState.IsTransactionHave(it))
+                    setState(getCurrentState().copy(isLoading = false, isHave = it))
                 },
                 onError = {
-                    setState(HomeUiState.Error)
+                    setState(HomeUiState(isLoading = false))
                     setEffect(HomeEffect.ShowMessage(it.localizedMessage as String))
                 },
                 onLoading = {
-                    setState(HomeUiState.Loading)
+                    setState(HomeUiState())
                 }
             )
         }
@@ -83,17 +81,14 @@ sealed interface HomeEvent : Event {
 
 }
 
-sealed interface HomeUiState : State {
-
-    object Loading : HomeUiState
-
-    object Error : HomeUiState
-
-    data class IsCardRegistered(val isRegistered: Boolean) : HomeUiState
+data class HomeUiState(
+    val isLoading: Boolean = true,
+    val isRegistered: Boolean = false,
+    val isHave: Boolean = false
+) : State
 
 
-    data class IsTransactionHave(val isHave: Boolean) : HomeUiState
 
-    data class CardData(val cardUiModel: CardUiModel) : HomeUiState
 
-}
+
+
