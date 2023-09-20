@@ -107,7 +107,7 @@ fun MainNavController() {
     ) { innerPadding ->
         NavHost(
             navController,
-            startDestination = Screen.SplashScreen.route,
+            startDestination = Screen.HomeScreen.route,
             Modifier.padding(innerPadding)
         ) {
             composable(Screen.SplashScreen.route) {
@@ -141,7 +141,9 @@ fun MainNavController() {
                 })
             }
             composable(Screen.HomeScreen.route) {
-                HomeScreen()
+                HomeScreen(onNavigate = {
+                    navController.navigate(it)
+                })
             }
 
             composable(Screen.ProfileScreen.route) { ProfileScreen() }

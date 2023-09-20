@@ -22,6 +22,24 @@ class LocalDataSourceImpl @Inject constructor(
         roomDAO.insertCard(cardDTO)
     }
 
+    override suspend fun isCardRegistered(): Resource<Boolean> {
+        return try {
+            val response = roomDAO.isCardRegistered()
+            Resource.Success(response)
+        } catch (e: Exception) {
+            Resource.Error(e)
+        }
+    }
+
+    override suspend fun isTransactionHave(): Resource<Boolean> {
+        return try {
+            val response = roomDAO.isTransactionHave()
+            Resource.Success(response)
+        } catch (e: Exception) {
+            Resource.Error(e)
+        }
+    }
+
     override suspend fun getCardDetails(): Resource<CardDTO> {
         return try {
             val response = roomDAO.getCardDetails()
