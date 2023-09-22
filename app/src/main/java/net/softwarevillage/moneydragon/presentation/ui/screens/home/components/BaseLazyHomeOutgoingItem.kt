@@ -15,7 +15,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,12 +22,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import net.softwarevillage.moneydragon.R
+import net.softwarevillage.moneydragon.domain.model.TransactionUiModel
 import net.softwarevillage.moneydragon.presentation.ui.components.BaseCircularImage
 import net.softwarevillage.moneydragon.presentation.ui.theme.Grey87
 import net.softwarevillage.moneydragon.presentation.ui.theme.PurpleBF
@@ -37,7 +35,7 @@ import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BaseLazyHomeOutgoingItem(
-
+    transactionUiModel: TransactionUiModel,
 ) {
 
     val modifier = Modifier
@@ -75,7 +73,7 @@ fun BaseLazyHomeOutgoingItem(
 
                 Text(
                     modifier = modifier.padding(bottom = 9.dp, start = 12.dp),
-                    text = "23 December 2020",
+                    text = transactionUiModel.date,
                     fontFamily = fontFamily,
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Normal,
@@ -111,7 +109,7 @@ fun BaseLazyHomeOutgoingItem(
                             contentDescription = null
                         )
                         Text(
-                            text = "- $56.23",
+                            text = "- $${transactionUiModel.amount}",
                             fontFamily = fontFamily,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold,
@@ -121,19 +119,12 @@ fun BaseLazyHomeOutgoingItem(
 
                 }
 
-                Text(
-                    modifier = modifier.padding(start = 12.dp),
-                    text = stringResource(id = R.string.from),
-                    fontSize = 11.sp,
-                    fontFamily = fontFamily,
-                    fontWeight = FontWeight.Medium,
-                    color = Grey87,
-                )
+
 
                 Text(
                     modifier = modifier.padding(start = 12.dp),
                     lineHeight = 14.sp,
-                    text = "Test\nTest",
+                    text = transactionUiModel.title,
                     fontFamily = fontFamily,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Bold,
@@ -145,14 +136,5 @@ fun BaseLazyHomeOutgoingItem(
         }
 
 
-    }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewOutgoing() {
-    Surface {
-        BaseLazyHomeOutgoingItem()
     }
 }

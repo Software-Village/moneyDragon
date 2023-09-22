@@ -125,6 +125,7 @@ fun MainNavController() {
 
                 CardColorScreen(
                     onBackPressed = { navController.popBackStack() },
+                    onNavigate = { navController.navigate(it) },
                     cardFaceUiModel = gson.fromJson(dataJson, CardFaceUiModel::class.java)
                 )
 
@@ -161,7 +162,11 @@ fun MainNavController() {
                 )
             }
             composable(Screen.ChartScreen.route) {
-                ChartScreen()
+                ChartScreen(
+                    onNavigate = {
+                        navController.navigate(it)
+                    }
+                )
             }
             composable(Screen.AddCardScreen.route) {
                 AddCardScreen(

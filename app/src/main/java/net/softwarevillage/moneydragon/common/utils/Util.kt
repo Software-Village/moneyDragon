@@ -30,7 +30,6 @@ fun cardNumberHider(cardNumber: String): String {
 
 
 fun getGroupBarChartTransactionsData(
-    maxRange: Int,
     transactionIncoming: List<TransactionUiModel>,
     transactionOutgoing: List<TransactionUiModel>,
 ): List<GroupBar> {
@@ -84,4 +83,13 @@ fun getGroupBarChartTransactionsData(
         list.add(GroupBar(index.toString(), barList))
     }
     return list
+}
+
+
+fun totalTransactionUiModel(data: List<TransactionUiModel>): TransactionUiModel {
+    val total = data.sumOf { it.amount.toDouble() }
+    val uiData = data.first()
+    return TransactionUiModel(
+        1, uiData.category, uiData.title, uiData.date, total.toFloat().toString(), uiData.type
+    )
 }

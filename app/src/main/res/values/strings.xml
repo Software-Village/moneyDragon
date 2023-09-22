@@ -61,6 +61,8 @@
     <string name="info">Info</string>
     <string name="term_use">Term of use</string>
     <string name="congrats">Congrats!</string>
+    <string name="totalIncome">Total income</string>
+    <string name="totalOutgoing">Total outgoing</string>
     <string name="empty_field">Fill the gaps.</string>
     <string name="account_register">Account Registed Successfully</string>
     <string name="overview">Overview</string>
