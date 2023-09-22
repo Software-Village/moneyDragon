@@ -1,5 +1,6 @@
 package net.softwarevillage.moneydragon.presentation.ui.screens.wallet
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -8,12 +9,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -22,25 +26,27 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import net.softwarevillage.moneydragon.R
-import net.softwarevillage.moneydragon.common.utils.toHexCode
-import net.softwarevillage.moneydragon.domain.model.CardUiModel
 import net.softwarevillage.moneydragon.presentation.navigation.Screen
+import net.softwarevillage.moneydragon.presentation.ui.components.MainLottie
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.CardFace
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.FlipCard
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.MainCardBackItem
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.MainCardFrontItem
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.RotationAxis
-import net.softwarevillage.moneydragon.presentation.ui.theme.BlueCard
+import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.components.AccountMovementItem
 import net.softwarevillage.moneydragon.presentation.ui.theme.Grey87
 import net.softwarevillage.moneydragon.presentation.ui.theme.PurpleBF
 import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily
@@ -48,9 +54,33 @@ import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily
 @Composable
 fun WalletScreen(
     onNavigate: (String) -> Unit,
+    viewModel: WalletViewModel = hiltViewModel(),
 ) {
     val modifier = Modifier
 
+    val context = LocalContext.current
+
+    val state = viewModel.state.collectAsStateWithLifecycle()
+    val effect = viewModel.effect.collectAsStateWithLifecycle(initialValue = null)
+
+
+    val cardState = remember {
+        mutableStateOf(CardFace.Front)
+    }
+
+    LaunchedEffect(key1 = state) {
+
+        if (!state.value.isLoading) {
+            when (effect.value) {
+                is WalletEffect.ShowMessage -> {
+                    val effectValue = effect.value as WalletEffect.ShowMessage
+                    Toast.makeText(context, effectValue.message, Toast.LENGTH_SHORT).show()
+                }
+
+                else -> Unit
+            }
+        }
+    }
 
     Surface(
         modifier = modifier.fillMaxSize()
@@ -76,24 +106,69 @@ fun WalletScreen(
 
             Spacer(modifier = modifier.size(20.dp))
 
-            WalletState(false, onNavigate)
+
+            if (state.value.isCardHave) {
+                viewModel.setEvent(WalletEvent.CardDetails)
+
+                state.value.cardUiModel?.let { cardUiModel ->
+                    viewModel.setEvent(WalletEvent.IsTransactionHave)
+                    Column {
+                        FlipCard(
+                            cardFace = cardState.value,
+                            modifier = modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 15.dp, horizontal = 15.dp),
+                            onClick = {
+                                cardState.value = cardState.value.next
+                            },
+                            axis = RotationAxis.AxisY,
+                            back = {
+                                MainCardBackItem(cardUiModel = cardUiModel)
+                            },
+                            front = {
+                                MainCardFrontItem(cardUiModel = cardUiModel)
+                            }
+                        )
+
+                        Spacer(modifier.size(15.dp))
+
+                        Row(modifier = modifier.fillMaxWidth()) {
+                            Text(
+                                modifier = modifier.padding(horizontal = 35.dp),
+                                text = stringResource(id = R.string.transactions),
+                                fontFamily = fontFamily,
+                                fontWeight = FontWeight.Normal,
+                                color = Grey87,
+                                fontSize = 18.sp
+                            )
+                        }
+
+                        Spacer(modifier = modifier.size(15.dp))
+
+                        if (state.value.isTransactionHave) {
+                            viewModel.setEvent(WalletEvent.Transactions)
+                            if (state.value.transactions.isNotEmpty()) {
+                                LazyColumn {
+                                    items(state.value.transactions) {
+                                        AccountMovementItem(transactionUiModel = it)
+                                    }
+                                }
+                            } else {
+                                MainLottie(showState = true, res = R.raw.lottie_empty_state_anim)
+                            }
+                        } else {
+                            MainLottie(showState = true, res = R.raw.lottie_empty_state_anim)
+                        }
+
+                    }
+                }
+
+            } else {
+                AddCardComposable(onNavigate = onNavigate)
+            }
 
         }
     }
-}
-
-@Composable
-fun WalletState(
-    state: Boolean,
-    onNavigate: (String) -> Unit,
-) {
-
-    if (state) {
-        CardAvailableComposable()
-    } else {
-        AddCardComposable(onNavigate = onNavigate)
-    }
-
 }
 
 @Composable
@@ -101,6 +176,8 @@ fun AddCardComposable(
     modifier: Modifier = Modifier,
     onNavigate: (String) -> Unit,
 ) {
+
+
     val composition = rememberLottieComposition(
         LottieCompositionSpec.RawRes(R.raw.lottie_card_anim)
     )
@@ -144,98 +221,4 @@ fun AddCardComposable(
 }
 
 
-@Composable
-fun CardAvailableComposable(
-    modifier: Modifier = Modifier,
-) {
-    val composition = rememberLottieComposition(
-        LottieCompositionSpec.RawRes(R.raw.lottie_empty_state_anim)
-    )
 
-    val cardState = remember {
-        mutableStateOf(CardFace.Front)
-    }
-
-    val fakeData = CardUiModel(
-        holdersName = "a",
-        cardScheme = "A",
-        cardNumber = "0",
-        cvv = 1,
-        expiryDate = "a",
-        cardColor = BlueCard.toHexCode(),
-        balance = 0.0,
-        id = 1
-    )
-
-
-    Column {
-        FlipCard(
-            cardFace = cardState.value,
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(vertical = 15.dp, horizontal = 15.dp),
-            onClick = {
-                cardState.value = cardState.value.next
-            },
-            axis = RotationAxis.AxisY,
-            back = {
-                MainCardBackItem()
-            },
-            front = {
-                MainCardFrontItem(cardUiModel = fakeData)
-            }
-        )
-
-        Spacer(modifier.size(15.dp))
-
-        Row(modifier = modifier.fillMaxWidth()) {
-            Text(
-                modifier = modifier.padding(horizontal = 35.dp),
-                text = stringResource(id = R.string.transactions),
-                fontFamily = fontFamily,
-                fontWeight = FontWeight.Normal,
-                color = Grey87,
-                fontSize = 18.sp
-            )
-        }
-
-        Spacer(modifier = modifier.size(15.dp))
-
-        TransactionState(state = false)
-
-    }
-
-}
-
-@Composable
-fun TransactionState(
-    state: Boolean,
-) {
-
-    if (state) {
-
-    } else {
-        EmptyTransactions()
-    }
-}
-
-@Composable
-fun EmptyTransactions() {
-
-    val modifier = Modifier
-
-    val composition = rememberLottieComposition(
-        spec = LottieCompositionSpec.RawRes(R.raw.lottie_empty_state_anim)
-    )
-
-    Column {
-        LottieAnimation(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(30.dp)
-                .clip(RectangleShape),
-            composition = composition.value,
-            iterations = LottieConstants.IterateForever,
-        )
-    }
-}

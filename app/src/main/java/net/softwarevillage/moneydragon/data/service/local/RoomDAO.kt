@@ -20,6 +20,12 @@ interface RoomDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCard(cardDTO: CardDTO)
 
+    @Query("select exists(select * from UserCard)")
+    suspend fun isCardRegistered(): Boolean
+
+    @Query("select exists(select * from `Transaction`)")
+    suspend fun isTransactionHave(): Boolean
+
     @Query("SELECT * FROM UserCard ORDER BY id ASC LIMIT 1")
     suspend fun getCardDetails(): CardDTO
 

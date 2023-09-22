@@ -107,7 +107,7 @@ fun MainNavController() {
     ) { innerPadding ->
         NavHost(
             navController,
-            startDestination = Screen.SplashScreen.route,
+            startDestination = Screen.HomeScreen.route,
             Modifier.padding(innerPadding)
         ) {
             composable(Screen.SplashScreen.route) {
@@ -125,6 +125,7 @@ fun MainNavController() {
 
                 CardColorScreen(
                     onBackPressed = { navController.popBackStack() },
+                    onNavigate = { navController.navigate(it) },
                     cardFaceUiModel = gson.fromJson(dataJson, CardFaceUiModel::class.java)
                 )
 
@@ -141,7 +142,9 @@ fun MainNavController() {
                 })
             }
             composable(Screen.HomeScreen.route) {
-                HomeScreen()
+                HomeScreen(onNavigate = {
+                    navController.navigate(it)
+                })
             }
 
             composable(Screen.ProfileScreen.route) { ProfileScreen() }
@@ -159,7 +162,11 @@ fun MainNavController() {
                 )
             }
             composable(Screen.ChartScreen.route) {
-                ChartScreen()
+                ChartScreen(
+                    onNavigate = {
+                        navController.navigate(it)
+                    }
+                )
             }
             composable(Screen.AddCardScreen.route) {
                 AddCardScreen(

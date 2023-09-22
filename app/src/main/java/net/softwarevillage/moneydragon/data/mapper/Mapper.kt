@@ -26,3 +26,11 @@ fun List<TransactionDTO>.toTransactionUiModel() = map {
         )
     }
 }
+
+fun CardUiModel.toCardDTO() = CardDTO(
+    id, holdersName, cardScheme, cardNumber, expiryDate, cvv, cardColor, balance
+)
+
+fun TransactionUiModel.toTransactionDTO() = TransactionDTO(
+    category, title, date, amount, type
+)

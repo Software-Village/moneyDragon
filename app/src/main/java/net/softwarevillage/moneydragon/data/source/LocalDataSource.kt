@@ -13,6 +13,10 @@ interface LocalDataSource {
 
     suspend fun insertCard(cardDTO: CardDTO)
 
+    suspend fun isCardRegistered(): Resource<Boolean>
+
+    suspend fun isTransactionHave(): Resource<Boolean>
+
     suspend fun getCardDetails(): Resource<CardDTO>
 
     suspend fun getAuthDetails(): Resource<AuthDTO>

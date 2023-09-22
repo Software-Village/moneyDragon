@@ -21,6 +21,7 @@
     <string name="card_Details">Card Details</string>
     <string name="add_card">Add Card</string>
     <string name="transactions">Transactions</string>
+    <string name="register_card">Register your card!</string>
     <string name="card_number">Card Number</string>
     <string name="holders_name">Holder\'s name</string>
     <string name="expiry_date">Expiry date</string>
@@ -30,10 +31,15 @@
     <string name="welcome_title">Welcome to</string>
     <string name="get_started">Get Started</string>
     <string name="welcome">Welcome</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="attention">Attention</string>
+    <string name="areYouSure">Are you sure to save your card?</string>
     <string name="onboard1_description">Track the progress of your saving and start a habit of saving with TransferMe.</string>
     <string name="onboard1_title">Saving Your Money</string>
     <string name="onboard2_title">Multiple Credit Cards</string>
     <string name="onboard3_title">Color Your Cards</string>
+    <string name="nothing_to_show">Nothing to show!</string>
     <string name="create_user">Create User</string>
     <string name="set_profile">Please set up your profile</string>
     <string name="cardColor">Card Color</string>
@@ -55,6 +61,8 @@
     <string name="info">Info</string>
     <string name="term_use">Term of use</string>
     <string name="congrats">Congrats!</string>
+    <string name="totalIncome">Total income</string>
+    <string name="totalOutgoing">Total outgoing</string>
     <string name="empty_field">Fill the gaps.</string>
     <string name="account_register">Account Registed Successfully</string>
     <string name="overview">Overview</string>

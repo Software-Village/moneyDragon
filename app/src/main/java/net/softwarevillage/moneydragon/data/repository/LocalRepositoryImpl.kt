@@ -31,6 +31,25 @@ class LocalRepositoryImpl @Inject constructor(
         source.insertCard(cardDTO)
     }
 
+    override suspend fun isCardRegistered(): Flow<Resource<Boolean>> = flow {
+        emit(Resource.Loading)
+        when (val response = source.isCardRegistered()) {
+            is Resource.Error -> emit(Resource.Error(response.throwable))
+            Resource.Loading -> Unit
+            is Resource.Success -> emit(Resource.Success(response.result))
+        }
+    }
+
+    override suspend fun isTransactionHave(): Flow<Resource<Boolean>> = flow {
+        emit(Resource.Loading)
+        when (val response = source.isTransactionHave()) {
+            is Resource.Error -> emit(Resource.Error(response.throwable))
+            Resource.Loading -> Unit
+            is Resource.Success -> emit(Resource.Success(response.result))
+
+        }
+    }
+
     override suspend fun getCardDetails(): Flow<Resource<CardUiModel>> = flow {
         emit(Resource.Loading)
         when (val response = source.getCardDetails()) {

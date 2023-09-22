@@ -28,14 +28,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import net.softwarevillage.moneydragon.R
 import net.softwarevillage.moneydragon.common.utils.toColor
 import net.softwarevillage.moneydragon.common.utils.toHexCode
+import net.softwarevillage.moneydragon.data.mapper.toCardDTO
 import net.softwarevillage.moneydragon.domain.model.CardFaceUiModel
 import net.softwarevillage.moneydragon.domain.model.CardUiModel
+import net.softwarevillage.moneydragon.presentation.navigation.Screen
+import net.softwarevillage.moneydragon.presentation.ui.components.MainAlertDialog
 import net.softwarevillage.moneydragon.presentation.ui.components.MainButton
 import net.softwarevillage.moneydragon.presentation.ui.components.NavigationButton
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.MainCardFrontItem
+import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.WalletEvent
+import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.WalletViewModel
 import net.softwarevillage.moneydragon.presentation.ui.theme.BlackCard
 import net.softwarevillage.moneydragon.presentation.ui.theme.BlueCard
 import net.softwarevillage.moneydragon.presentation.ui.theme.DarkBlueCard
@@ -49,8 +55,12 @@ import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily
 @Composable
 fun CardColorScreen(
     onBackPressed: () -> Unit,
+    onNavigate: (String) -> Unit,
     cardFaceUiModel: CardFaceUiModel,
+    viewModel: WalletViewModel = hiltViewModel(),
 ) {
+
+    val alertState = remember { mutableStateOf(false) }
 
     val cardColorList = listOf(
         BlueCard.toHexCode(),
@@ -85,11 +95,25 @@ fun CardColorScreen(
 
     val modifier = Modifier
 
-    Surface(modifier = modifier
-        .fillMaxSize()
-        .verticalScroll(scrollState)) {
+    Surface(
+        modifier = modifier
+            .fillMaxSize()
+            .verticalScroll(scrollState)
+    ) {
         Column(modifier = modifier.fillMaxSize()) {
-
+            if (alertState.value) {
+                MainAlertDialog(
+                    title = stringResource(id = R.string.attention),
+                    text = stringResource(id = R.string.areYouSure),
+                    onDismissListener = {
+                        alertState.value = false
+                    }, onConfirmListener = {
+                        alertState.value = false
+                        viewModel.setEvent(WalletEvent.AddCard(cardDTO = cardDataState.value.toCardDTO()))
+                        onNavigate(Screen.HomeScreen.route)
+                    }
+                )
+            }
             Box(
                 modifier = modifier
                     .fillMaxWidth()
@@ -162,7 +186,7 @@ fun CardColorScreen(
                 contentAlignment = Alignment.Center
             ) {
                 MainButton(title = R.string.confirm) {
-
+                    alertState.value = true
                 }
             }
 
@@ -179,5 +203,6 @@ private fun changeCardColor(data: CardUiModel, newColor: String): CardUiModel {
         )
     }
 }
+
 
 

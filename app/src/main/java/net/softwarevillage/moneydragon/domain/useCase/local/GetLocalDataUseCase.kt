@@ -3,7 +3,11 @@ package net.softwarevillage.moneydragon.domain.useCase.local
 import net.softwarevillage.moneydragon.domain.repository.LocalRepository
 import javax.inject.Inject
 
-class LocalGetDataUseCase @Inject constructor(private val repo: LocalRepository) {
+class GetLocalDataUseCase @Inject constructor(private val repo: LocalRepository) {
+
+    suspend fun isCardRegistered() = repo.isCardRegistered()
+
+    suspend fun isTransactionHave() = repo.isTransactionHave()
 
     suspend fun getCardDetails() = repo.getCardDetails()
 

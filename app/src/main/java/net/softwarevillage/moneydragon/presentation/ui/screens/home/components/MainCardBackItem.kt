@@ -27,12 +27,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import net.softwarevillage.moneydragon.R
-import net.softwarevillage.moneydragon.presentation.ui.theme.BlueCard
-import net.softwarevillage.moneydragon.presentation.ui.theme.White
+import net.softwarevillage.moneydragon.common.utils.toColor
+import net.softwarevillage.moneydragon.domain.model.CardUiModel
 import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily
 
 @Composable
-fun MainCardBackItem() {
+fun MainCardBackItem(
+    cardUiModel: CardUiModel,
+) {
 
     val modifier = Modifier
 
@@ -42,7 +44,7 @@ fun MainCardBackItem() {
             .height(190.dp),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
-            containerColor = BlueCard
+            containerColor = cardUiModel.cardColor.toColor()
         ),
 
         ) {
@@ -69,7 +71,7 @@ fun MainCardBackItem() {
             ) {
                 Spacer(modifier = modifier.size(20.dp))
                 Text(
-                    text = "0000 0000 0000 0000",
+                    text = cardUiModel.cardNumber,
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.Bold,
                     fontSize = 22.sp,
@@ -93,7 +95,7 @@ fun MainCardBackItem() {
                         )
 
                         Text(
-                            text = "174",
+                            text = cardUiModel.cvv.toString(),
                             fontFamily = fontFamily,
                             fontWeight = FontWeight.Medium,
                             fontSize = 22.sp,
@@ -117,7 +119,7 @@ fun MainCardBackItem() {
                         )
 
                         Text(
-                            text = "00/00",
+                            text = cardUiModel.expiryDate,
                             fontFamily = fontFamily,
                             fontWeight = FontWeight.Medium,
                             fontSize = 22.sp,

@@ -85,8 +85,8 @@ fun TotalTransactionItem(
                 verticalArrangement = Arrangement.Bottom,
             ) {
                 Text(
-                    text = if (transactionUiModel.type == 1) stringResource(id = R.string.income) else stringResource(
-                        id = R.string.outgoing
+                    text = if (transactionUiModel.type == 1) stringResource(id = R.string.totalIncome) else stringResource(
+                        id = R.string.totalOutgoing
                     ),
                     fontSize = 14.sp,
                     fontFamily = fontFamily,
