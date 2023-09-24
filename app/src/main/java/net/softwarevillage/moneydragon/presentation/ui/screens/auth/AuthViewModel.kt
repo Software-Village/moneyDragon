@@ -2,17 +2,20 @@ package net.softwarevillage.moneydragon.presentation.ui.screens.auth
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import net.softwarevillage.moneydragon.common.base.BaseViewModel
 import net.softwarevillage.moneydragon.common.base.Effect
 import net.softwarevillage.moneydragon.common.base.Event
 import net.softwarevillage.moneydragon.common.base.State
+import net.softwarevillage.moneydragon.data.service.local.DataStoreRepository
 import net.softwarevillage.moneydragon.domain.useCase.remote.AuthUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
-    private val authUseCase: AuthUseCase
+    private val authUseCase: AuthUseCase,
+    private val dataStoreRepository: DataStoreRepository,
 ) : BaseViewModel<AuthUiState, AuthEvent, AuthEffect>() {
     override fun setInitialState(): AuthUiState = AuthUiState()
 
@@ -24,6 +27,10 @@ class AuthViewModel @Inject constructor(
 
             is AuthEvent.RegisterUser -> {
                 register(event.email, event.password)
+            }
+
+            is AuthEvent.OnboardComplete -> {
+                saveOnboardingState()
             }
         }
     }
@@ -65,11 +72,26 @@ class AuthViewModel @Inject constructor(
             })
         }
     }
+
+    private fun saveOnboardingState() {
+        viewModelScope.launch {
+            dataStoreRepository.setOnboardState(true)
+        }
+    }
+
+    fun getOnboardComplete() {
+        viewModelScope.launch {
+            dataStoreRepository.getOnboardState.collectLatest {
+                setState(AuthUiState(isCompleted = it ?: false))
+            }
+        }
+    }
 }
 
 
 data class AuthUiState(
     val isLoading: Boolean = false,
+    val isCompleted: Boolean = false
 ) : State
 
 sealed interface AuthEffect : Effect {
@@ -79,4 +101,5 @@ sealed interface AuthEffect : Effect {
 sealed interface AuthEvent : Event {
     data class LoginUser(val email: String, val password: String) : AuthEvent
     data class RegisterUser(val email: String, val password: String) : AuthEvent
+    object OnboardComplete : AuthEvent
 }
