@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,22 +33,18 @@ fun SplashScreen(
     viewModel: AuthViewModel = hiltViewModel()
 ) {
 
-    val effect = viewModel.effect.collectAsStateWithLifecycle(null)
+    val state = viewModel.state.collectAsStateWithLifecycle()
 
-    LaunchedEffect(key1 = effect.value) {
+    SideEffect {
         viewModel.getOnboardComplete()
-        when (effect.value) {
-            is AuthEffect.CompletedOnboarding -> {
-                val onboardState = effect.value as AuthEffect.CompletedOnboarding
-                delay(2500)
-                if (onboardState.isCompleted) {
-                    navigateHome.invoke()
-                } else {
-                    navigateLogin.invoke()
-                }
-            }
+    }
 
-            else -> {}
+    LaunchedEffect(key1 = false) {
+        delay(2500)
+        if (state.value.isCompleted) {
+            navigateHome.invoke()
+        } else {
+            navigateLogin.invoke()
         }
     }
 

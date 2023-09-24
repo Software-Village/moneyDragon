@@ -82,7 +82,7 @@ class AuthViewModel @Inject constructor(
     fun getOnboardComplete() {
         viewModelScope.launch {
             dataStoreRepository.getOnboardState.collectLatest {
-                setEffect(AuthEffect.CompletedOnboarding(it ?: false))
+                setState(AuthUiState(isCompleted = it ?: false))
             }
         }
     }
@@ -90,12 +90,12 @@ class AuthViewModel @Inject constructor(
 
 
 data class AuthUiState(
-    val isLoading: Boolean = false
+    val isLoading: Boolean = false,
+    val isCompleted: Boolean = false
 ) : State
 
 sealed interface AuthEffect : Effect {
     data class ShowMessage(val message: String? = null, val isLogin: Boolean = false) : AuthEffect
-    data class CompletedOnboarding(val isCompleted: Boolean) : AuthEffect
 }
 
 sealed interface AuthEvent : Event {
