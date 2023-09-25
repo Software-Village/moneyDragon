@@ -50,3 +50,21 @@
 | Add Card 1 | Add Card 2 | Profile |
 | ------ | ---- | ------ |
 |<img src="https://github.com/Software-Village/moneyDragon/assets/79416442/1632ffed-c336-4ed2-9226-3718877cd7f2" width="250" height="500"/>|<img src="https://github.com/Software-Village/moneyDragon/assets/79416442/7d723ec6-d194-4c06-8135-35e5c6a6335d" width="250" height="500"/>|<img src="https://github.com/Software-Village/moneyDragon/assets/79416442/b2b421ef-c0b9-46c9-8472-ceec6f73133a" width="250" height="500"/>|
+
+</br>
+
+## 👨 Developed By 
+
+ <img src="https://github.com/asgeri85/moviesAppAndroid/assets/79416442/c749813f-9476-401f-ad13-13df4d7b881d" width="80" align="left">
+
+**İBRAHİM ASGARİ**
+
+[![Linkedin](https://www.vectorlogo.zone/logos/linkedin/linkedin-icon.svg)](https://www.linkedin.com/in/ibrahim-asgari-/)
+
+</br>
+
+ <img src="https://github.com/Software-Village/moneyDragon/assets/79416442/420bfa56-b769-41fd-8aae-a09d5159b6c6" width="80" align="left">
+
+**Sahib Bashirli**
+
+[![Linkedin](https://www.vectorlogo.zone/logos/linkedin/linkedin-icon.svg)](https://www.linkedin.com/in/sahib-bashirli-179874254)
