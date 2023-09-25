@@ -26,7 +26,7 @@ fun MainGroupBarTransactionChart(
     )
 
     val groupBarData = getGroupBarChartTransactionsData(
-        maxRange, transactionIncoming, transactionOutgoing
+        transactionIncoming, transactionOutgoing
     )
 
     val groupBarPlotData = BarPlotData(
