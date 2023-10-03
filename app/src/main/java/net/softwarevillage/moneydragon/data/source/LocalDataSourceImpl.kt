@@ -22,6 +22,10 @@ class LocalDataSourceImpl @Inject constructor(
         roomDAO.insertCard(cardDTO)
     }
 
+    override suspend fun updateBalance(balance: Double) {
+        roomDAO.updateBalance(balance)
+    }
+
     override suspend fun isCardRegistered(): Resource<Boolean> {
         return try {
             val response = roomDAO.isCardRegistered()

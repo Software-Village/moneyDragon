@@ -31,6 +31,10 @@ class LocalRepositoryImpl @Inject constructor(
         source.insertCard(cardDTO)
     }
 
+    override suspend fun updateCard(balance: Double) {
+        source.updateBalance(balance)
+    }
+
     override suspend fun isCardRegistered(): Flow<Resource<Boolean>> = flow {
         emit(Resource.Loading)
         when (val response = source.isCardRegistered()) {
