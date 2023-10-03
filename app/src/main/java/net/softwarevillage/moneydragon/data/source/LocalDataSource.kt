@@ -13,6 +13,8 @@ interface LocalDataSource {
 
     suspend fun insertCard(cardDTO: CardDTO)
 
+    suspend fun updateBalance(balance: Double)
+
     suspend fun isCardRegistered(): Resource<Boolean>
 
     suspend fun isTransactionHave(): Resource<Boolean>

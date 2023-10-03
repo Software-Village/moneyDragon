@@ -21,6 +21,7 @@
     <string name="card_Details">Card Details</string>
     <string name="add_card">Add Card</string>
     <string name="transactions">Transactions</string>
+    <string name="transaction">Transaction</string>
     <string name="register_card">Register your card!</string>
     <string name="card_number">Card Number</string>
     <string name="holders_name">Holder\'s name</string>
@@ -85,10 +86,17 @@
     <string name="email">Email Address</string>
     <string name="password">Password</string>
     <string name="re_password">Confirm Password</string>
+    <string name="available_balance">Available Balance</string>
     <string name="or">OR</string>
+    <string name="add_transaction">Add transaction</string>
     <string name="have_account">Don’t have an account?</string>
     <string name="sign_up_bottom">Sign Up</string>
+    <string name="title">Title</string>
     <string name="already_account">Already have an account?</string>
     <string name="register">Register</string>
+    <string name="dont_have_balance">You don\'t have enough money in balance.</string>
     <string name="password_match">Passwords do not match</string>
+    <string name="transaction_title"> Add you daily transactions for your statistics and history.</string>
+    <string name="transaction_attention">Attention! Transaction amount will change your balance.</string>
+    <string name="transaction_amount">Transaction amount</string>
 </resources>

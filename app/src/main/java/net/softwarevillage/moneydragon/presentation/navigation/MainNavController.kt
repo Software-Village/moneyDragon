@@ -33,6 +33,7 @@ import net.softwarevillage.moneydragon.presentation.ui.screens.auth.WelcomeScree
 import net.softwarevillage.moneydragon.presentation.ui.screens.chart.ChartScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.HomeScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.profile.ProfileScreen
+import net.softwarevillage.moneydragon.presentation.ui.screens.transaction.TransactionScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.HistoryScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.WalletScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.addCard.AddCardScreen
@@ -64,6 +65,7 @@ fun MainNavController() {
         Screen.CardColorScreen.route + "?{cardFaceUiModel}",
         Screen.LoginScreen.route,
         Screen.RegisterScreen.route,
+        Screen.TransactionScreen.route,
         -> false
 
         else -> true
@@ -107,7 +109,7 @@ fun MainNavController() {
     ) { innerPadding ->
         NavHost(
             navController,
-            startDestination = Screen.HomeScreen.route,
+            startDestination = Screen.SplashScreen.route,
             Modifier.padding(innerPadding)
         ) {
             composable(Screen.SplashScreen.route) {
@@ -200,6 +202,18 @@ fun MainNavController() {
                     navController.popBackStack()
                 })
             }
+
+            composable(route = Screen.TransactionScreen.route) {
+                TransactionScreen(
+                    onNavigate = {
+                        navController.navigate(it)
+                    },
+                    onBack = {
+                        navController.popBackStack()
+                    }
+                )
+            }
+
         }
     }
 

@@ -17,6 +17,8 @@ interface LocalRepository {
 
     suspend fun insertCard(cardDTO: CardDTO)
 
+    suspend fun updateCard(balance: Double)
+
     suspend fun isCardRegistered(): Flow<Resource<Boolean>>
 
     suspend fun isTransactionHave(): Flow<Resource<Boolean>>

@@ -1,6 +1,7 @@
 package net.softwarevillage.moneydragon.presentation.ui.screens.wallet
 
 import android.widget.Toast
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,8 +15,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -27,6 +30,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -40,6 +44,7 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import net.softwarevillage.moneydragon.R
 import net.softwarevillage.moneydragon.presentation.navigation.Screen
+import net.softwarevillage.moneydragon.presentation.ui.components.MainButton
 import net.softwarevillage.moneydragon.presentation.ui.components.MainLottie
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.CardFace
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.FlipCard
@@ -47,6 +52,7 @@ import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.M
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.MainCardFrontItem
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.components.RotationAxis
 import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.components.AccountMovementItem
+import net.softwarevillage.moneydragon.presentation.ui.theme.Blue
 import net.softwarevillage.moneydragon.presentation.ui.theme.Grey87
 import net.softwarevillage.moneydragon.presentation.ui.theme.PurpleBF
 import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily
@@ -129,18 +135,49 @@ fun WalletScreen(
                                 MainCardFrontItem(cardUiModel = cardUiModel)
                             }
                         )
+                        Spacer(modifier.size(15.dp))
+
+                        MainButton(
+                            title = R.string.add_transaction,
+                            modifier = modifier.align(Alignment.CenterHorizontally)
+                        ) {
+                            onNavigate(Screen.TransactionScreen.route)
+                        }
 
                         Spacer(modifier.size(15.dp))
 
-                        Row(modifier = modifier.fillMaxWidth()) {
+                        Row(
+                            modifier = modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 35.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
                             Text(
-                                modifier = modifier.padding(horizontal = 35.dp),
+                                modifier = modifier,
                                 text = stringResource(id = R.string.transactions),
                                 fontFamily = fontFamily,
                                 fontWeight = FontWeight.Normal,
                                 color = Grey87,
                                 fontSize = 18.sp
                             )
+
+                            TextButton(onClick = {
+                                onNavigate(Screen.HistoryScreen.route)
+                            }) {
+                                Text(
+                                    text = stringResource(id = R.string.see_all),
+                                    fontSize = 14.sp,
+                                    fontFamily = fontFamily,
+                                    fontWeight = FontWeight.W400,
+                                    color = Blue
+                                )
+                                Spacer(modifier = modifier.size(6.dp))
+                                Icon(
+                                    painter = painterResource(id = R.drawable.arrow_right),
+                                    contentDescription = ""
+                                )
+                            }
                         }
 
                         Spacer(modifier = modifier.size(15.dp))

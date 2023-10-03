@@ -20,6 +20,9 @@ interface RoomDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCard(cardDTO: CardDTO)
 
+    @Query("update UserCard set balance=:balance")
+    suspend fun updateBalance(balance: Double)
+
     @Query("select exists(select * from UserCard)")
     suspend fun isCardRegistered(): Boolean
 
