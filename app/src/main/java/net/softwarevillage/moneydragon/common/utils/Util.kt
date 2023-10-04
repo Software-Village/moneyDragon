@@ -93,3 +93,7 @@ fun totalTransactionUiModel(data: List<TransactionUiModel>): TransactionUiModel 
         1, uiData.category, uiData.title, uiData.date, total.toFloat().toString(), uiData.type
     )
 }
+
+fun totalTransactionAmount(data: List<TransactionUiModel>): Double {
+    return if (data.isEmpty()) 0.0 else data.sumOf { it.amount.toDouble() }
+}

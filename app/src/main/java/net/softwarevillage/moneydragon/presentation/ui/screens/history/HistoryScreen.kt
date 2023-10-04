@@ -1,5 +1,6 @@
-package net.softwarevillage.moneydragon.presentation.ui.screens.wallet
+package net.softwarevillage.moneydragon.presentation.ui.screens.history
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,16 +16,21 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import net.softwarevillage.moneydragon.R
-import net.softwarevillage.moneydragon.domain.model.TransactionUiModel
+import net.softwarevillage.moneydragon.common.utils.totalTransactionAmount
+import net.softwarevillage.moneydragon.presentation.ui.components.MainLottie
 import net.softwarevillage.moneydragon.presentation.ui.components.NavigationButton
 import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.components.AccountMovementItem
 import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.components.TransactionItem
@@ -34,48 +40,29 @@ import net.softwarevillage.moneydragon.presentation.ui.theme.LightBlue
 import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily
 
 @Composable
-fun HistoryScreen() {
+fun HistoryScreen(
+    viewModel: HistoryViewModel = hiltViewModel(),
+    onBack: () -> Unit,
+    onNavigate: (String) -> Unit,
+) {
 
-    val transaction = listOf(
-        TransactionUiModel(
-            1,
-            2,
-            "fasfafasf",
-            "10:25",
-            "5.45",
-            1
-        ),
-        TransactionUiModel(
-            1,
-            2,
-            "fasfafasf",
-            "10:25",
-            "5.45",
-            1
-        ), TransactionUiModel(
-            1,
-            2,
-            "fasfafasf",
-            "10:25",
-            "5.45",
-            1
-        ), TransactionUiModel(
-            1,
-            2,
-            "fasfafasf",
-            "10:25",
-            "5.45",
-            2
-        ),
-        TransactionUiModel(
-            1,
-            2,
-            "fasfafasf",
-            "10:25",
-            "5.45",
-            2
-        )
-    )
+    val state = viewModel.state.collectAsStateWithLifecycle()
+    val effect = viewModel.effect.collectAsStateWithLifecycle(initialValue = null)
+
+    val context = LocalContext.current
+
+    LaunchedEffect(key1 = state) {
+        if (!state.value.isLoading) {
+            when (effect.value) {
+                is HistoryEffect.ShowMessage -> {
+                    val effectValue = effect.value as HistoryEffect.ShowMessage
+                    Toast.makeText(context, effectValue.message, Toast.LENGTH_LONG).show()
+                }
+
+                else -> {}
+            }
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -85,7 +72,7 @@ fun HistoryScreen() {
         Spacer(modifier = Modifier.height(32.dp))
         Box(modifier = Modifier.fillMaxWidth()) {
             NavigationButton(
-                navigate = {},
+                navigate = { onBack() },
                 modifier = Modifier.padding(start = 32.dp)
             )
             Text(
@@ -113,7 +100,7 @@ fun HistoryScreen() {
                 )
                 Spacer(modifier = Modifier.width(12.dp))
                 Text(
-                    text = stringResource(id = R.string.may),
+                    text = stringResource(id = R.string.all_time),
                     color = Black,
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.W500,
@@ -123,27 +110,32 @@ fun HistoryScreen() {
             Spacer(modifier = Modifier.height(14.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
                 TransactionItem(
-                    title = R.string.transactions,
+                    title = R.string.income,
                     icon = R.drawable.arrow_top,
-                    price = "200$"
+                    price = "$${totalTransactionAmount(state.value.transactionData.filter { it.type != 0 })}",
+                    bgColor = LightBlue
                 )
                 Spacer(modifier = Modifier.width(12.dp))
                 TransactionItem(
-                    title = R.string.tickets,
+                    title = R.string.outgoing,
                     icon = R.drawable.arrow_top_right,
-                    price = "100$",
-                    bgColor = LightBlue
+                    price = "$${totalTransactionAmount(state.value.transactionData.filter { it.type == 0 })}"
                 )
             }
             Spacer(modifier = Modifier.height(20.dp))
-            LazyColumn() {
-                items(transaction) {
-                    AccountMovementItem(
-                        transactionUiModel = it
-                    )
+            if (state.value.isLoading) {
+                MainLottie(showState = true, res = R.raw.loading)
+            } else {
+                LazyColumn {
+                    items(state.value.transactionData) {
+                        AccountMovementItem(
+                            transactionUiModel = it
+                        )
+                    }
                 }
             }
 
         }
     }
+
 }
