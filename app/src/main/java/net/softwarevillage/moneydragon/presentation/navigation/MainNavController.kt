@@ -31,10 +31,10 @@ import net.softwarevillage.moneydragon.presentation.ui.screens.auth.RegisterScre
 import net.softwarevillage.moneydragon.presentation.ui.screens.auth.SplashScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.auth.WelcomeScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.chart.ChartScreen
+import net.softwarevillage.moneydragon.presentation.ui.screens.history.HistoryScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.HomeScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.profile.ProfileScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.transaction.TransactionScreen
-import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.HistoryScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.WalletScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.addCard.AddCardScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.cardColor.CardColorScreen
@@ -66,6 +66,7 @@ fun MainNavController() {
         Screen.LoginScreen.route,
         Screen.RegisterScreen.route,
         Screen.TransactionScreen.route,
+        Screen.HistoryScreen.route,
         -> false
 
         else -> true
@@ -109,7 +110,7 @@ fun MainNavController() {
     ) { innerPadding ->
         NavHost(
             navController,
-            startDestination = Screen.SplashScreen.route,
+            startDestination = Screen.HomeScreen.route,
             Modifier.padding(innerPadding)
         ) {
             composable(Screen.SplashScreen.route) {
@@ -188,7 +189,14 @@ fun MainNavController() {
             }
 
             composable(route = Screen.HistoryScreen.route) {
-                HistoryScreen()
+                HistoryScreen(
+                    onBack = {
+                        navController.popBackStack()
+                    },
+                    onNavigate = {
+                        navController.navigate(it)
+                    }
+                )
             }
 
             composable(route = Screen.LoginScreen.route) {

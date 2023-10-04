@@ -99,4 +99,5 @@
     <string name="transaction_title"> Add you daily transactions for your statistics and history.</string>
     <string name="transaction_attention">Attention! Transaction amount will change your balance.</string>
     <string name="transaction_amount">Transaction amount</string>
+    <string name="all_time">All time</string>
 </resources>
