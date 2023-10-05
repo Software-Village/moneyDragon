@@ -127,7 +127,7 @@ fun HistoryScreen(
                 MainLottie(showState = true, res = R.raw.loading)
             } else {
                 LazyColumn {
-                    items(state.value.transactionData) {
+                    items(state.value.transactionData.reversed()) {
                         AccountMovementItem(
                             transactionUiModel = it
                         )

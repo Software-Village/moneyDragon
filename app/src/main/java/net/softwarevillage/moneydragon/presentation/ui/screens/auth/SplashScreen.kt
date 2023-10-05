@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,27 +23,26 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.delay
 import net.softwarevillage.moneydragon.R
+import net.softwarevillage.moneydragon.presentation.navigation.Screen
 import net.softwarevillage.moneydragon.presentation.ui.theme.Blue
 
 @Composable
 fun SplashScreen(
-    navigateLogin: () -> Unit,
-    navigateHome: () -> Unit,
-    viewModel: AuthViewModel = hiltViewModel()
+    onNavigate: (String) -> Unit,
+    viewModel: AuthViewModel = hiltViewModel(),
 ) {
 
     val state = viewModel.state.collectAsStateWithLifecycle()
 
-    SideEffect {
-        viewModel.getOnboardComplete()
-    }
 
-    LaunchedEffect(key1 = false) {
+    LaunchedEffect(key1 = state.value) {
         delay(2500)
-        if (state.value.isCompleted) {
-            navigateHome.invoke()
+        if (state.value.isTokenHave && state.value.isCompleted) {
+            onNavigate(Screen.HomeScreen.route)
+        } else if (!state.value.isTokenHave && state.value.isCompleted) {
+            onNavigate(Screen.LoginScreen.route)
         } else {
-            navigateLogin.invoke()
+            onNavigate(Screen.WelcomeScreen.route)
         }
     }
 

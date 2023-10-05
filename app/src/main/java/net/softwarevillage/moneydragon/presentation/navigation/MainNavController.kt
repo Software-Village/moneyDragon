@@ -110,15 +110,15 @@ fun MainNavController() {
     ) { innerPadding ->
         NavHost(
             navController,
-            startDestination = Screen.HomeScreen.route,
+            startDestination = Screen.SplashScreen.route,
             Modifier.padding(innerPadding)
         ) {
             composable(Screen.SplashScreen.route) {
-                SplashScreen(navigateHome = {
-                    navController.navigate(Screen.LoginScreen.route)
-                }, navigateLogin = {
-                    navController.navigate(Screen.WelcomeScreen.route)
-                })
+                SplashScreen(
+                    onNavigate = {
+                        navController.navigate(it)
+                    }
+                )
             }
 
             composable(
@@ -202,7 +202,11 @@ fun MainNavController() {
             composable(route = Screen.LoginScreen.route) {
                 LoginScreen(navigateRegister = {
                     navController.navigate(Screen.RegisterScreen.route)
-                })
+                },
+                    navigateHome = {
+                        navController.navigate(Screen.HomeScreen.route)
+                    }
+                )
             }
 
             composable(route = Screen.RegisterScreen.route) {

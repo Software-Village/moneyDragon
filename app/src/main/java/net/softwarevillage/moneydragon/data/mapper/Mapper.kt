@@ -8,7 +8,7 @@ import net.softwarevillage.moneydragon.domain.model.CardUiModel
 import net.softwarevillage.moneydragon.domain.model.TransactionUiModel
 
 fun AuthDTO.toAuthUiModel() = AuthUiModel(
-    id, name, surname, image, pin
+    id, name, email, image,
 )
 
 fun CardDTO.toCardUiModel() = CardUiModel(
