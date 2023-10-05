@@ -7,7 +7,6 @@ import androidx.room.PrimaryKey
 data class AuthDTO(
     @PrimaryKey(autoGenerate = false) val id: Int,
     val name: String,
-    val surname: String,
+    val email: String,
     val image: ByteArray?,
-    val pin: Int,
 )

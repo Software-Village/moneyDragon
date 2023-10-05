@@ -45,6 +45,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import net.softwarevillage.moneydragon.R
+import net.softwarevillage.moneydragon.common.utils.takeMainMailFromEmail
+import net.softwarevillage.moneydragon.data.dto.local.AuthDTO
 import net.softwarevillage.moneydragon.presentation.ui.components.MainButton
 import net.softwarevillage.moneydragon.presentation.ui.components.MainLottie
 import net.softwarevillage.moneydragon.presentation.ui.components.MainPasswordTextInput
@@ -58,7 +60,8 @@ import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily
 @Composable
 fun LoginScreen(
     navigateRegister: () -> Unit,
-    viewModel: AuthViewModel = hiltViewModel()
+    navigateHome: () -> Unit,
+    viewModel: AuthViewModel = hiltViewModel(),
 ) {
 
     val state = viewModel.state.collectAsStateWithLifecycle()
@@ -80,7 +83,17 @@ fun LoginScreen(
                     val effectLogin = effect.value as AuthEffect.ShowMessage
 
                     if (effectLogin.isLogin) {
-                        Toast.makeText(context, "Ok", Toast.LENGTH_SHORT).show()
+                        viewModel.setEvent(
+                            AuthEvent.InsertAuth(
+                                authDTO = AuthDTO(
+                                    1, takeMainMailFromEmail(email.value), email.value, null
+                                )
+                            )
+                        )
+                        state.value.authResult?.let {
+                            viewModel.setEvent(AuthEvent.TokenSaver(it.user?.uid ?: ""))
+                        }
+                        navigateHome.invoke()
                     } else {
                         Toast.makeText(context, effectLogin.message, Toast.LENGTH_SHORT).show()
                     }

@@ -110,7 +110,7 @@ fun CardColorScreen(
                     }, onConfirmListener = {
                         alertState.value = false
                         viewModel.setEvent(WalletEvent.AddCard(cardDTO = cardDataState.value.toCardDTO()))
-                        onNavigate(Screen.HomeScreen.route)
+                        onNavigate(Screen.WalletScreen.route)
                     }
                 )
             }

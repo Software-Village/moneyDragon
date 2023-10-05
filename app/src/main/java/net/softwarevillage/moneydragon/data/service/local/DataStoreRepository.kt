@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
+import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -17,11 +18,20 @@ class DataStoreRepository @Inject constructor(
 
     private object PreferencesKeys {
         val isOnboardingComplete = booleanPreferencesKey("onboard_complete")
+
+        val token = stringPreferencesKey("token")
     }
+
 
     suspend fun setOnboardState(isComplete: Boolean) {
         dataStore.edit {
             it[PreferencesKeys.isOnboardingComplete] = isComplete
+        }
+    }
+
+    suspend fun setTokenState(token: String) {
+        dataStore.edit {
+            it[PreferencesKeys.token] = token
         }
     }
 
@@ -33,6 +43,16 @@ class DataStoreRepository @Inject constructor(
         }
     }.map {
         it[PreferencesKeys.isOnboardingComplete] ?: false
+    }
+
+    val getToken: Flow<String?> = dataStore.data.catch {
+        if (it is IOException) {
+            emit(emptyPreferences())
+        } else {
+            throw it
+        }
+    }.map {
+        it[PreferencesKeys.token] ?: ""
     }
 
 }

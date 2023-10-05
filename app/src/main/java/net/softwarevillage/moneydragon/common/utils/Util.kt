@@ -97,3 +97,9 @@ fun totalTransactionUiModel(data: List<TransactionUiModel>): TransactionUiModel 
 fun totalTransactionAmount(data: List<TransactionUiModel>): Double {
     return if (data.isEmpty()) 0.0 else data.sumOf { it.amount.toDouble() }
 }
+
+fun takeMainMailFromEmail(email: String): String {
+    var newMail = ""
+    for (c in email) if (c != '@') newMail += c else break
+    return newMail
+}
