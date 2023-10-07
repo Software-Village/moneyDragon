@@ -1,6 +1,5 @@
 package net.softwarevillage.moneydragon.presentation.ui.screens.home.components
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -10,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -27,7 +27,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import net.softwarevillage.moneydragon.R
 import net.softwarevillage.moneydragon.domain.model.TransactionUiModel
-import net.softwarevillage.moneydragon.presentation.ui.components.BaseCircularImage
 import net.softwarevillage.moneydragon.presentation.ui.theme.Grey87
 import net.softwarevillage.moneydragon.presentation.ui.theme.PurpleBF
 import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily
@@ -91,12 +90,10 @@ fun BaseLazyHomeOutgoingItem(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    BaseCircularImage(
-                        modifier = modifier.padding(top = 12.dp),
-                        size = 40.dp,
-                        shape = 20.dp,
-                        image = R.drawable.ic_launcher_background,
-                        border = BorderStroke(width = 0.5.dp, color = Grey87)
+                    Image(
+                        modifier = modifier.size(40.dp),
+                        painter = painterResource(id = R.drawable.logo),
+                        contentDescription = null
                     )
 
                     Column(
