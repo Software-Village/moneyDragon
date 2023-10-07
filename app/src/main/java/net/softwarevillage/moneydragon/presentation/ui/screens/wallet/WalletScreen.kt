@@ -180,7 +180,7 @@ fun WalletScreen(
                             }
                         }
 
-                        Spacer(modifier = modifier.size(15.dp))
+                        Spacer(modifier = modifier.size(4.dp))
 
                         if (state.value.isTransactionHave) {
                             viewModel.setEvent(WalletEvent.Transactions)
