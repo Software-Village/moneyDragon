@@ -145,7 +145,7 @@ fun HomeScreen(
                     color = Grey87
                 )
 
-                TextButton(onClick = { }) {
+                TextButton(onClick = { onNavigate(Screen.HistoryScreen.route) }) {
                     Text(
                         text = stringResource(id = R.string.see_all),
                         fontSize = 14.sp,
@@ -202,7 +202,7 @@ fun HomeScreen(
                     color = Grey87
                 )
 
-                TextButton(onClick = { }) {
+                TextButton(onClick = { onNavigate(Screen.HistoryScreen.route) }) {
                     Text(
                         text = stringResource(id = R.string.see_all),
                         fontSize = 14.sp,
@@ -260,7 +260,7 @@ fun HomeScreen(
                     color = Grey87
                 )
 
-                TextButton(onClick = { }) {
+                TextButton(onClick = { onNavigate(Screen.HistoryScreen.route) }) {
                     Text(
                         text = stringResource(id = R.string.see_all),
                         fontSize = 14.sp,
@@ -317,7 +317,6 @@ fun HomeCardStateCheck(
     viewModel: HomeViewModel = hiltViewModel(),
     onNavigate: (String) -> Unit,
 ) {
-
 
 
     if (state.isRegistered) {
