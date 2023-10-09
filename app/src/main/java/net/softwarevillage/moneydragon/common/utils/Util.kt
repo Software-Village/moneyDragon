@@ -1,10 +1,16 @@
 package net.softwarevillage.moneydragon.common.utils
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
+import androidx.room.TypeConverter
 import co.yml.charts.common.model.Point
 import co.yml.charts.ui.barchart.models.BarData
 import co.yml.charts.ui.barchart.models.GroupBar
 import com.google.gson.GsonBuilder
 import net.softwarevillage.moneydragon.domain.model.TransactionUiModel
+import java.io.ByteArrayOutputStream
 
 fun objectToJson(data: Any): String {
     val gson = GsonBuilder().create()
@@ -102,4 +108,29 @@ fun takeMainMailFromEmail(email: String): String {
     var newMail = ""
     for (c in email) if (c != '@') newMail += c else break
     return newMail
+}
+
+fun getBitmapFromUri(context: Context, imageUri: Uri): Bitmap? {
+    return try {
+        val inputStream = context.contentResolver.openInputStream(imageUri)
+        inputStream.use {
+            BitmapFactory.decodeStream(it)
+        }
+    } catch (e: Exception) {
+        null
+    }
+}
+
+@TypeConverter
+fun fromUri(context: Context, image: Uri): ByteArray {
+    val bitmap = getBitmapFromUri(context, image)
+    val outputStream = ByteArrayOutputStream()
+    bitmap?.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+    return outputStream.toByteArray()
+}
+
+
+@TypeConverter
+fun toBitmap(byteArray: ByteArray?): Bitmap? {
+    return byteArray?.let { BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size) }
 }

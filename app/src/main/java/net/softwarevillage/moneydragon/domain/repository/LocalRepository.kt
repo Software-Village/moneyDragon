@@ -19,6 +19,8 @@ interface LocalRepository {
 
     suspend fun updateCard(balance: Double)
 
+    suspend fun updateUserPhoto(image: ByteArray?)
+
     suspend fun isCardRegistered(): Flow<Resource<Boolean>>
 
     suspend fun isTransactionHave(): Flow<Resource<Boolean>>

@@ -15,6 +15,8 @@ interface LocalDataSource {
 
     suspend fun updateBalance(balance: Double)
 
+    suspend fun updateUserPhoto(image: ByteArray?)
+
     suspend fun isCardRegistered(): Resource<Boolean>
 
     suspend fun isTransactionHave(): Resource<Boolean>

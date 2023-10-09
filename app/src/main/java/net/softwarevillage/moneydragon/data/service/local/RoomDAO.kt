@@ -23,6 +23,9 @@ interface RoomDAO {
     @Query("update UserCard set balance=:balance")
     suspend fun updateBalance(balance: Double)
 
+    @Query("update Auth set image=:image")
+    suspend fun updateUserPhoto(image: ByteArray?)
+
     @Query("select exists(select * from UserCard)")
     suspend fun isCardRegistered(): Boolean
 

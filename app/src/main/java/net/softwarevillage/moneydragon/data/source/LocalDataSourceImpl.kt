@@ -26,6 +26,10 @@ class LocalDataSourceImpl @Inject constructor(
         roomDAO.updateBalance(balance)
     }
 
+    override suspend fun updateUserPhoto(image: ByteArray?) {
+        roomDAO.updateUserPhoto(image)
+    }
+
     override suspend fun isCardRegistered(): Resource<Boolean> {
         return try {
             val response = roomDAO.isCardRegistered()
