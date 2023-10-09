@@ -30,7 +30,7 @@ fun TransactionItem(
     @StringRes title: Int,
     @DrawableRes icon: Int,
     price: String,
-    @ColorRes bgColor: Color = Blue
+    @ColorRes bgColor: Color = Blue,
 ) {
     Card(
         colors = CardDefaults.cardColors(

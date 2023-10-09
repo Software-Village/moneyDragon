@@ -10,6 +10,8 @@ class LocalInsertUseCase @Inject constructor(
     private val repo: LocalRepository,
 ) {
 
+    suspend fun updateUserPhoto(image: ByteArray?) = repo.updateUserPhoto(image)
+
     suspend fun updateBalance(balance: Double) = repo.updateCard(balance)
 
     suspend fun insertAuth(authDTO: AuthDTO) = repo.insertAuth(authDTO)
