@@ -92,12 +92,18 @@ fun getGroupBarChartTransactionsData(
 }
 
 
-fun totalTransactionUiModel(data: List<TransactionUiModel>): TransactionUiModel {
-    val total = data.sumOf { it.amount.toDouble() }
-    val uiData = data.first()
-    return TransactionUiModel(
-        1, uiData.category, uiData.title, uiData.date, total.toFloat().toString(), uiData.type
-    )
+fun totalTransactionUiModel(data: List<TransactionUiModel>, type: Int): TransactionUiModel {
+    return if (data.isEmpty()) {
+        TransactionUiModel(
+            1, 0, "", "", "0.0", type
+        )
+    } else {
+        val total = data.sumOf { it.amount.toDouble() }
+        val uiData = data.first()
+        TransactionUiModel(
+            1, uiData.category, uiData.title, uiData.date, total.toFloat().toString(), type
+        )
+    }
 }
 
 fun totalTransactionAmount(data: List<TransactionUiModel>): Double {

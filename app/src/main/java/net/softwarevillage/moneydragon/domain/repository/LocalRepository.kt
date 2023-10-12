@@ -21,6 +21,8 @@ interface LocalRepository {
 
     suspend fun updateUserPhoto(image: ByteArray?)
 
+    suspend fun getTransactionDetails(id: Int): Flow<Resource<TransactionUiModel>>
+
     suspend fun isCardRegistered(): Flow<Resource<Boolean>>
 
     suspend fun isTransactionHave(): Flow<Resource<Boolean>>

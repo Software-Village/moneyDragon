@@ -136,23 +136,19 @@ fun ChartScreen(
 
                         transactions.value = state.value.transactions
 
-                        MainGroupBarTransactionChart(
-                            modifier = modifier
-                                .height(300.dp)
-                                .padding(0.dp),
+                        MainGroupBarTransactionChart(modifier = modifier
+                            .height(300.dp)
+                            .padding(0.dp),
                             maxRange = 100,
                             yStepSize = 5,
                             transactionIncoming = if (transactions.value.size > 50) transactions.value.subList(
-                                0,
-                                50
+                                0, 50
                             )
                                 .filter { it.type == 1 } else transactions.value.filter { it.type == 1 },
                             transactionOutgoing = if (transactions.value.size > 50) transactions.value.subList(
-                                0,
-                                50
+                                0, 50
                             )
-                                .filter { it.type != 1 } else transactions.value.filter { it.type != 1 }
-                        )
+                                .filter { it.type != 1 } else transactions.value.filter { it.type != 1 })
 
                         Row(
                             modifier = modifier.fillMaxWidth(),
@@ -218,13 +214,15 @@ fun ChartScreen(
 
                             if (state.value.transactions.isNotEmpty()) {
                                 TotalTransactionItem(
-                                    transactionUiModel = totalTransactionUiModel(transactions.value.filter { it.type == 1 }),
-                                    size = 160.dp
+                                    transactionUiModel = totalTransactionUiModel(
+                                        transactions.value.filter { it.type == 1 }, 1
+                                    ), size = 160.dp
                                 )
 
                                 TotalTransactionItem(
-                                    transactionUiModel = totalTransactionUiModel(transactions.value.filter { it.type != 1 }),
-                                    size = 160.dp
+                                    transactionUiModel = totalTransactionUiModel(
+                                        transactions.value.filter { it.type != 1 }, 0
+                                    ), size = 160.dp
                                 )
                             }
 
@@ -233,12 +231,8 @@ fun ChartScreen(
                     } else {
                         MainLottie(showState = true, res = R.raw.lottie_empty_state_anim)
                     }
-
                 }
-
             }
-
-
         }
     } else {
 

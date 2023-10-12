@@ -23,6 +23,9 @@ interface RoomDAO {
     @Query("update UserCard set balance=:balance")
     suspend fun updateBalance(balance: Double)
 
+    @Query("select * from `transaction` where id=:id")
+    suspend fun getTransactionDetails(id: Int): TransactionDTO
+
     @Query("update Auth set image=:image")
     suspend fun updateUserPhoto(image: ByteArray?)
 

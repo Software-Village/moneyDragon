@@ -187,7 +187,10 @@ fun WalletScreen(
                             if (state.value.transactions.isNotEmpty()) {
                                 LazyColumn {
                                     items(state.value.transactions) {
-                                        AccountMovementItem(transactionUiModel = it)
+                                        AccountMovementItem(
+                                            transactionUiModel = it,
+                                            onNavigation = onNavigate
+                                        )
                                     }
                                 }
                             } else {

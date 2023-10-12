@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import net.softwarevillage.moneydragon.R
 import net.softwarevillage.moneydragon.domain.model.TransactionUiModel
+import net.softwarevillage.moneydragon.presentation.navigation.Screen
 import net.softwarevillage.moneydragon.presentation.ui.theme.BlueEB
 import net.softwarevillage.moneydragon.presentation.ui.theme.Grey87
 import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily
@@ -35,6 +36,7 @@ import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily
 @Composable
 fun BaseLazyHomeIncomingItem(
     transactionUiModel: TransactionUiModel,
+    onNavigate: (String) -> Unit,
 ) {
 
     val modifier = Modifier
@@ -46,8 +48,7 @@ fun BaseLazyHomeIncomingItem(
             .width(160.dp)
             .height(200.dp),
         onClick = {
-
-            //OnClickAction
+            onNavigate(Screen.TransactionDetailsScreen.route + "?${transactionUiModel.id}")
         },
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
