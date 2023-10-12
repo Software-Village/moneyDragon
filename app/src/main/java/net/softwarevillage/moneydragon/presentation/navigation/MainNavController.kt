@@ -17,23 +17,26 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.google.gson.GsonBuilder
 import net.softwarevillage.moneydragon.domain.model.CardFaceUiModel
 import net.softwarevillage.moneydragon.presentation.ui.screens.auth.CongratsScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.auth.CreateUserScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.auth.LoginScreen
-import net.softwarevillage.moneydragon.presentation.ui.screens.auth.OnboardingScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.auth.RegisterScreen
-import net.softwarevillage.moneydragon.presentation.ui.screens.auth.SplashScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.auth.WelcomeScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.chart.ChartScreen
+import net.softwarevillage.moneydragon.presentation.ui.screens.details.TransactionDetailsScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.history.HistoryScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.HomeScreen
+import net.softwarevillage.moneydragon.presentation.ui.screens.onboarding.OnboardingScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.profile.ProfileScreen
+import net.softwarevillage.moneydragon.presentation.ui.screens.splash.SplashScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.transaction.TransactionScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.WalletScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.addCard.AddCardScreen
@@ -67,6 +70,7 @@ fun MainNavController() {
         Screen.RegisterScreen.route,
         Screen.TransactionScreen.route,
         Screen.HistoryScreen.route,
+        Screen.TransactionDetailsScreen.route + "?{id}",
         -> false
 
         else -> true
@@ -213,6 +217,18 @@ fun MainNavController() {
                 RegisterScreen(navigateLogin = {
                     navController.popBackStack()
                 })
+            }
+
+            composable(
+                route = Screen.TransactionDetailsScreen.route + "?{id}",
+                arguments = listOf(navArgument("id") { type = NavType.IntType })
+            ) {
+                TransactionDetailsScreen(
+                    onBack = {
+                        navController.popBackStack()
+                    },
+                    id = it.arguments?.getInt("id") ?: 0
+                )
             }
 
             composable(route = Screen.TransactionScreen.route) {

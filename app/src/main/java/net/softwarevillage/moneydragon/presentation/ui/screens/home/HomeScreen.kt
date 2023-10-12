@@ -176,7 +176,7 @@ fun HomeScreen(
                     contentPadding = PaddingValues(horizontal = mainHorizontalPadding)
                 ) {
                     items(transactions.value.filter { it.type == 1 }) {
-                        BaseLazyHomeIncomingItem(it)
+                        BaseLazyHomeIncomingItem(it, onNavigate = onNavigate)
                     }
                 }
             } else {
@@ -227,7 +227,7 @@ fun HomeScreen(
                         contentPadding = PaddingValues(horizontal = mainHorizontalPadding)
                     ) {
                         items(transactions.value.filter { it.type != 1 }) {
-                            BaseLazyHomeOutgoingItem(it)
+                            BaseLazyHomeOutgoingItem(it, onNavigate = onNavigate)
                         }
                     }
                 }
@@ -288,7 +288,7 @@ fun HomeScreen(
                                 .fillParentMaxWidth()
                                 .padding(vertical = 5.dp)
                         ) {
-                            AccountMovementItem(transactionUiModel = it)
+                            AccountMovementItem(transactionUiModel = it, onNavigation = onNavigate)
                         }
                     }
                 }

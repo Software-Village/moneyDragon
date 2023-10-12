@@ -101,4 +101,6 @@
     <string name="transaction_amount">Transaction amount</string>
     <string name="all_time">All time</string>
     <string name="photo_cancel">Photo is not selected.</string>
+    <string name="amount">Amount</string>
+    <string name="transaction_details">Transaction details</string>
 </resources>

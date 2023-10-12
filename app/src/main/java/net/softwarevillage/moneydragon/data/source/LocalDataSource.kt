@@ -17,6 +17,8 @@ interface LocalDataSource {
 
     suspend fun updateUserPhoto(image: ByteArray?)
 
+    suspend fun getTransactionDetails(id: Int): Resource<TransactionDTO>
+
     suspend fun isCardRegistered(): Resource<Boolean>
 
     suspend fun isTransactionHave(): Resource<Boolean>

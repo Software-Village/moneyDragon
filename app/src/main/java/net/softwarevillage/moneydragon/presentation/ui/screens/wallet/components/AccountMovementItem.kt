@@ -1,6 +1,7 @@
 package net.softwarevillage.moneydragon.presentation.ui.screens.wallet.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import net.softwarevillage.moneydragon.R
 import net.softwarevillage.moneydragon.domain.model.TransactionUiModel
+import net.softwarevillage.moneydragon.presentation.navigation.Screen
 import net.softwarevillage.moneydragon.presentation.ui.theme.Black
 import net.softwarevillage.moneydragon.presentation.ui.theme.Blue
 import net.softwarevillage.moneydragon.presentation.ui.theme.BlueEB
@@ -31,11 +33,17 @@ import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily
 
 @Composable
 fun AccountMovementItem(
-    transactionUiModel: TransactionUiModel
+    transactionUiModel: TransactionUiModel,
+    onNavigation: (String) -> Unit,
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable {
+                onNavigation(
+                    Screen.TransactionDetailsScreen.route + "?${transactionUiModel.id}"
+                )
+            }
             .padding(vertical = 6.dp, horizontal = 5.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color.White

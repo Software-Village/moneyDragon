@@ -30,6 +30,15 @@ class LocalDataSourceImpl @Inject constructor(
         roomDAO.updateUserPhoto(image)
     }
 
+    override suspend fun getTransactionDetails(id: Int): Resource<TransactionDTO> {
+        return try {
+            val response = roomDAO.getTransactionDetails(id)
+            Resource.Success(response)
+        } catch (e: Exception) {
+            Resource.Error(e)
+        }
+    }
+
     override suspend fun isCardRegistered(): Resource<Boolean> {
         return try {
             val response = roomDAO.isCardRegistered()

@@ -129,7 +129,7 @@ fun HistoryScreen(
                 LazyColumn {
                     items(state.value.transactionData.reversed()) {
                         AccountMovementItem(
-                            transactionUiModel = it
+                            transactionUiModel = it, onNavigation = onNavigate
                         )
                     }
                 }
