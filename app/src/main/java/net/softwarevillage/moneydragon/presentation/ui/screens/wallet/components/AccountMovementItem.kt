@@ -1,7 +1,6 @@
 package net.softwarevillage.moneydragon.presentation.ui.screens.wallet.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,6 +31,7 @@ import net.softwarevillage.moneydragon.presentation.ui.theme.Blue
 import net.softwarevillage.moneydragon.presentation.ui.theme.BlueEB
 import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AccountMovementItem(
     transactionUiModel: TransactionUiModel,
@@ -39,19 +40,23 @@ fun AccountMovementItem(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable {
-                onNavigation(
-                    Screen.TransactionDetailsScreen.route + "?${transactionUiModel.id}"
-                )
-            }
             .padding(vertical = 6.dp, horizontal = 5.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color.White
         ),
+        onClick = {
+            onNavigation(
+                Screen.TransactionDetailsScreen.route + "?${transactionUiModel.id}"
+            )
+        },
         shape = RoundedCornerShape(20.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(12.dp)) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .padding(12.dp)
+        ) {
             Column(modifier = Modifier.weight(0.25f)) {
                 Box(
                     modifier = Modifier
