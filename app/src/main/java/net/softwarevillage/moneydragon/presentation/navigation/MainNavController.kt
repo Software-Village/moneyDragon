@@ -38,6 +38,7 @@ import net.softwarevillage.moneydragon.presentation.ui.screens.onboarding.Onboar
 import net.softwarevillage.moneydragon.presentation.ui.screens.profile.ProfileScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.splash.SplashScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.transaction.TransactionScreen
+import net.softwarevillage.moneydragon.presentation.ui.screens.transaction.TransactionSuccessScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.WalletScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.addCard.AddCardScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.wallet.cardColor.CardColorScreen
@@ -70,6 +71,7 @@ fun MainNavController() {
         Screen.RegisterScreen.route,
         Screen.TransactionScreen.route,
         Screen.HistoryScreen.route,
+        Screen.TransactionSuccessScreen.route,
         Screen.TransactionDetailsScreen.route + "?{id}",
         -> false
 
@@ -120,7 +122,11 @@ fun MainNavController() {
             composable(Screen.SplashScreen.route) {
                 SplashScreen(
                     onNavigate = {
-                        navController.navigate(it)
+                        navController.navigate(it) {
+                            popUpTo(Screen.SplashScreen.route) {
+                                inclusive = true
+                            }
+                        }
                     }
                 )
             }
@@ -134,7 +140,13 @@ fun MainNavController() {
 
                 CardColorScreen(
                     onBackPressed = { navController.popBackStack() },
-                    onNavigate = { navController.navigate(it) },
+                    onNavigate = {
+                        navController.navigate(it) {
+                            popUpTo(Screen.AddCardScreen.route) {
+                                inclusive = true
+                            }
+                        }
+                    },
                     cardFaceUiModel = gson.fromJson(dataJson, CardFaceUiModel::class.java)
                 )
 
@@ -217,6 +229,18 @@ fun MainNavController() {
                 RegisterScreen(navigateLogin = {
                     navController.popBackStack()
                 })
+            }
+
+            composable(route = Screen.TransactionSuccessScreen.route) {
+                TransactionSuccessScreen(
+                    onNavigate = {
+                        navController.navigate(it) {
+                            popUpTo(Screen.TransactionScreen.route) {
+                                inclusive = true
+                            }
+                        }
+                    }
+                )
             }
 
             composable(
