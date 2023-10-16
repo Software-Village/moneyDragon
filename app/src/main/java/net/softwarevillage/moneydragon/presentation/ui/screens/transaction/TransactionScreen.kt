@@ -37,6 +37,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import net.softwarevillage.moneydragon.R
 import net.softwarevillage.moneydragon.data.dto.local.TransactionDTO
+import net.softwarevillage.moneydragon.presentation.navigation.Screen
 import net.softwarevillage.moneydragon.presentation.ui.components.MainButton
 import net.softwarevillage.moneydragon.presentation.ui.components.MainTextInput
 import net.softwarevillage.moneydragon.presentation.ui.components.NavigationButton
@@ -270,13 +271,11 @@ fun TransactionScreen(
                                         if (selectedChip.value == 0) cardUiModel.balance - transactionAmount.value.toDouble() else cardUiModel.balance + transactionAmount.value.toDouble()
                                     )
                                 )
-                                onBack()
+                                onNavigate(Screen.TransactionSuccessScreen.route)
                             }
                         }
-
                     }
                 }
-
             }
         }
     }
