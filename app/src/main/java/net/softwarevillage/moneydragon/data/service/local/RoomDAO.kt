@@ -26,6 +26,9 @@ interface RoomDAO {
     @Query("select * from `transaction` where id=:id")
     suspend fun getTransactionDetails(id: Int): TransactionDTO
 
+    @Query("Select * from `transaction` where type=:type order by amount asc")
+    suspend fun getHighestTransaction(type: Int): TransactionDTO
+
     @Query("update Auth set image=:image")
     suspend fun updateUserPhoto(image: ByteArray?)
 

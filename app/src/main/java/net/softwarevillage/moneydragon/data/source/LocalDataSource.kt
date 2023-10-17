@@ -19,6 +19,8 @@ interface LocalDataSource {
 
     suspend fun getTransactionDetails(id: Int): Resource<TransactionDTO>
 
+    suspend fun getHighestTransaction(type: Int): Resource<TransactionDTO>
+
     suspend fun isCardRegistered(): Resource<Boolean>
 
     suspend fun isTransactionHave(): Resource<Boolean>

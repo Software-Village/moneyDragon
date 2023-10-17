@@ -48,6 +48,21 @@ class LocalRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getHighestTransaction(type: Int): Flow<Resource<TransactionUiModel>> =
+        flow {
+            emit(Resource.Loading)
+            when (val response = source.getHighestTransaction(type)) {
+                is Resource.Error -> {
+                    emit(Resource.Error(response.throwable))
+                }
+
+                Resource.Loading -> Unit
+                is Resource.Success -> {
+                    emit(Resource.Success(response.result?.toTransactionUiModel()))
+                }
+            }
+        }
+
     override suspend fun isCardRegistered(): Flow<Resource<Boolean>> = flow {
         emit(Resource.Loading)
         when (val response = source.isCardRegistered()) {
