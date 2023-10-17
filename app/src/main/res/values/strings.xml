@@ -103,5 +103,7 @@
     <string name="photo_cancel">Photo is not selected.</string>
     <string name="transaction_success">Money Transferred Successfully</string>
     <string name="amount">Amount</string>
+    <string name="expenses_trends">Expenses Trends</string>
+    <string name="highest_expense">Highest Expense</string>
     <string name="transaction_details">Transaction details</string>
 </resources>

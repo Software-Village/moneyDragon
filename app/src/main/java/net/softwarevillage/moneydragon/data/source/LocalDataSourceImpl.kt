@@ -39,6 +39,15 @@ class LocalDataSourceImpl @Inject constructor(
         }
     }
 
+    override suspend fun getHighestTransaction(type: Int): Resource<TransactionDTO> {
+        return try {
+            val response = roomDAO.getHighestTransaction(type)
+            Resource.Success(response)
+        } catch (e: Exception) {
+            Resource.Error(e)
+        }
+    }
+
     override suspend fun isCardRegistered(): Resource<Boolean> {
         return try {
             val response = roomDAO.isCardRegistered()

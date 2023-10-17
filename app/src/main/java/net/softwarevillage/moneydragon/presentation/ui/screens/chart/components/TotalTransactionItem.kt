@@ -1,17 +1,15 @@
 package net.softwarevillage.moneydragon.presentation.ui.screens.chart.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,93 +18,72 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import net.softwarevillage.moneydragon.R
 import net.softwarevillage.moneydragon.domain.model.TransactionUiModel
-import net.softwarevillage.moneydragon.presentation.ui.theme.Blue
 import net.softwarevillage.moneydragon.presentation.ui.theme.BlueEB
+import net.softwarevillage.moneydragon.presentation.ui.theme.PurpleBF
 import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TotalTransactionItem(
+    modifier: Modifier = Modifier,
     transactionUiModel: TransactionUiModel,
-    size: Dp,
+    onNavigate: (String) -> Unit,
 ) {
-
-    val modifier = Modifier
-
     Card(
-        modifier = modifier.size(size),
+        modifier = modifier,
         shape = RoundedCornerShape(15.dp),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 3.dp,
+        ),
         colors = CardDefaults.cardColors(
-            containerColor = if (transactionUiModel.type == 1) BlueEB else Blue
-        )
+            containerColor = Color.White
+        ),
+        onClick = {
+            //navigation
+        }
     ) {
         Column(
-            modifier = modifier,
-            verticalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            Box(
-                modifier = modifier.fillMaxWidth(),
-                contentAlignment = Alignment.TopEnd
-            ) {
-                Card(
-                    modifier = modifier
-                        .padding(horizontal = 20.dp, vertical = 10.dp)
-                        .size(30.dp),
-                    shape = RoundedCornerShape(15.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = Color.White
-                    )
-                ) {
-                    Box(
-                        modifier = modifier
-                            .padding(3.dp)
-                            .fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Icon(
-                            tint = if (transactionUiModel.type == 1) BlueEB else Blue,
-                            painter = if (transactionUiModel.type == 1) painterResource(id = R.drawable.arrow_top) else painterResource(
-                                id = R.drawable.arrow_top_right
-                            ),
-                            contentDescription = null
-                        )
-                    }
-                }
-            }
-            Column(
-                modifier = modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 20.dp, vertical = 20.dp),
-                verticalArrangement = Arrangement.Bottom,
-            ) {
-                Text(
-                    text = if (transactionUiModel.type == 1) stringResource(id = R.string.totalIncome) else stringResource(
-                        id = R.string.totalOutgoing
-                    ),
-                    fontSize = 14.sp,
-                    fontFamily = fontFamily,
-                    fontWeight = FontWeight.Normal,
-                    color = Color.Black
-                )
-                Spacer(modifier = modifier.size(5.dp))
-                Text(
-                    text = "$${transactionUiModel.amount}",
-                    fontSize = 18.sp,
-                    fontFamily = fontFamily,
-                    fontWeight = FontWeight.Medium,
-                    color = Color.White
-                )
+            Image(
+                painter = painterResource(
+                    id = if (transactionUiModel.type == 1) R.drawable.arrow_incoming else R.drawable.arrow_outgoing
+                ), contentDescription = ""
+            )
 
-            }
+            Spacer(modifier = Modifier.size(8.dp))
 
+            Text(
+                text = if (transactionUiModel.type == 1) stringResource(id = R.string.income) else stringResource(
+                    id = R.string.outgoing
+                ),
+                fontFamily = fontFamily,
+                fontWeight = FontWeight.W700,
+                fontSize = 18.sp,
+                color = if (transactionUiModel.type == 1) BlueEB else PurpleBF
+            )
+
+            Spacer(modifier = Modifier.size(8.dp))
+
+
+            Text(
+                text = "$ ${transactionUiModel.amount}",
+                fontFamily = fontFamily,
+                fontWeight = FontWeight.W700,
+                fontSize = 24.sp,
+                color = if (transactionUiModel.type == 1) BlueEB else PurpleBF
+            )
         }
-
     }
 }
+
+
 
 

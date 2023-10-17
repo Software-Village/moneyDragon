@@ -23,6 +23,8 @@ interface LocalRepository {
 
     suspend fun getTransactionDetails(id: Int): Flow<Resource<TransactionUiModel>>
 
+    suspend fun getHighestTransaction(type: Int): Flow<Resource<TransactionUiModel>>
+
     suspend fun isCardRegistered(): Flow<Resource<Boolean>>
 
     suspend fun isTransactionHave(): Flow<Resource<Boolean>>

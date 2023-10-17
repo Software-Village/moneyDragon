@@ -30,6 +30,24 @@ class ChartViewModel @Inject constructor(
             ChartEvent.GetTransactions -> getTransactions()
             ChartEvent.IsCardHave -> isCardHave()
             ChartEvent.IsTransactionHave -> isTransactionHave()
+            is ChartEvent.GetHighestTransaction -> getHighestTransaction(event.type)
+        }
+    }
+
+    private fun getHighestTransaction(type: Int) {
+        viewModelScope.launch {
+            getLocalDataUseCase.getHighestTransaction(type).handleResult(
+                onComplete = {
+                    setState(getCurrentState().copy(isLoading = false, highestTransaction = it))
+                },
+                onError = {
+                    setState(getCurrentState().copy(isLoading = false))
+                    setEffect(ChartEffect.ShowMessage(it.localizedMessage as String))
+                },
+                onLoading = {
+                    setState(getCurrentState().copy(isLoading = true))
+                }
+            )
         }
     }
 
@@ -111,10 +129,12 @@ data class ChartUiState(
     val isTransactionHave: Boolean = false,
     val cardUiModel: CardUiModel? = null,
     val transactions: List<TransactionUiModel> = emptyList(),
-
-    ) : State
+    val highestTransaction: TransactionUiModel? = null,
+) : State
 
 sealed interface ChartEvent : Event {
+
+    data class GetHighestTransaction(val type: Int) : ChartEvent
 
     object IsCardHave : ChartEvent
 
