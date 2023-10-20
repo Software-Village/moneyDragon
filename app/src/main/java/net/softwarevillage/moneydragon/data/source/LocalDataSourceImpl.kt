@@ -48,6 +48,24 @@ class LocalDataSourceImpl @Inject constructor(
         }
     }
 
+    override suspend fun getFilteredTransactions(type: Int): Resource<List<TransactionDTO>> {
+        return try {
+            val response = roomDAO.getFilteredTransactions(type)
+            Resource.Success(response)
+        } catch (e: Exception) {
+            Resource.Error(e)
+        }
+    }
+
+    override suspend fun getTransactionsNewestFirst(): Resource<List<TransactionDTO>> {
+        return try {
+            val response = roomDAO.getTransactionNewestFirst()
+            Resource.Success(response)
+        } catch (e: Exception) {
+            Resource.Error(e)
+        }
+    }
+
     override suspend fun isCardRegistered(): Resource<Boolean> {
         return try {
             val response = roomDAO.isCardRegistered()

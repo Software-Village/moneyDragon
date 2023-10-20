@@ -28,12 +28,54 @@ class HistoryViewModel @Inject constructor(
             HistoryEvent.GetTransactions -> {
                 getTransactions()
             }
+
+            is HistoryEvent.TransactionFilter -> {
+                getTransactionFilter(event.type)
+            }
+
+            HistoryEvent.TransactionNewestFirst -> {
+                getTransactionsNewestFirst()
+            }
         }
     }
 
     private fun getTransactions() {
         viewModelScope.launch {
             getLocalDataUseCase.getTransactions().handleResult(
+                onComplete = {
+                    setState(getCurrentState().copy(isLoading = false, localTransactions = it))
+                },
+                onError = {
+                    setState(getCurrentState().copy(isLoading = false))
+                    setEffect(HistoryEffect.ShowMessage(it.localizedMessage as String))
+                },
+                onLoading = {
+                    setState(getCurrentState().copy(isLoading = true))
+                }
+            )
+        }
+    }
+
+    private fun getTransactionFilter(type: Int) {
+        viewModelScope.launch {
+            getLocalDataUseCase.getFilteredTransactions(type).handleResult(
+                onComplete = {
+                    setState(getCurrentState().copy(isLoading = false, transactionData = it))
+                },
+                onLoading = {
+                    setState(getCurrentState().copy(isLoading = true))
+                },
+                onError = {
+                    setState(getCurrentState().copy(isLoading = false))
+                    setEffect(HistoryEffect.ShowMessage(it.localizedMessage as String))
+                }
+            )
+        }
+    }
+
+    private fun getTransactionsNewestFirst() {
+        viewModelScope.launch {
+            getLocalDataUseCase.getTransactionsNewestFirst().handleResult(
                 onComplete = {
                     setState(getCurrentState().copy(isLoading = false, transactionData = it))
                 },
@@ -53,6 +95,7 @@ class HistoryViewModel @Inject constructor(
 
 data class HistoryState(
     var isLoading: Boolean = false,
+    var localTransactions: List<TransactionUiModel> = emptyList(),
     var transactionData: List<TransactionUiModel> = emptyList(),
 ) : State
 
@@ -60,6 +103,9 @@ sealed class HistoryEvent : Event {
 
     object GetTransactions : HistoryEvent()
 
+    data class TransactionFilter(val type: Int) : HistoryEvent()
+
+    object TransactionNewestFirst : HistoryEvent()
 }
 
 sealed class HistoryEffect : Effect {

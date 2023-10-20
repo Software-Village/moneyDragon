@@ -21,6 +21,10 @@ interface LocalDataSource {
 
     suspend fun getHighestTransaction(type: Int): Resource<TransactionDTO>
 
+    suspend fun getFilteredTransactions(type: Int): Resource<List<TransactionDTO>>
+
+    suspend fun getTransactionsNewestFirst(): Resource<List<TransactionDTO>>
+
     suspend fun isCardRegistered(): Resource<Boolean>
 
     suspend fun isTransactionHave(): Resource<Boolean>

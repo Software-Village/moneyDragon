@@ -13,6 +13,10 @@ class GetLocalDataUseCase @Inject constructor(private val repo: LocalRepository)
 
     suspend fun getHighestTransaction(type: Int) = repo.getHighestTransaction(type)
 
+    suspend fun getFilteredTransactions(type: Int) = repo.getFilteredTransactions(type)
+
+    suspend fun getTransactionsNewestFirst() = repo.getTransactionsNewestFirst()
+
     suspend fun getCardDetails() = repo.getCardDetails()
 
     suspend fun getAuthDetails() = repo.getAuthDetails()

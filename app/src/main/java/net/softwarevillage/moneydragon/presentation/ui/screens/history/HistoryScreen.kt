@@ -2,6 +2,7 @@ package net.softwarevillage.moneydragon.presentation.ui.screens.history
 
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,10 +14,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,6 +33,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import net.softwarevillage.moneydragon.R
+import net.softwarevillage.moneydragon.common.utils.HistoryFilterEnum
 import net.softwarevillage.moneydragon.common.utils.totalTransactionAmount
 import net.softwarevillage.moneydragon.presentation.ui.components.MainLottie
 import net.softwarevillage.moneydragon.presentation.ui.components.NavigationButton
@@ -39,8 +44,10 @@ import net.softwarevillage.moneydragon.presentation.ui.theme.Grey87
 import net.softwarevillage.moneydragon.presentation.ui.theme.LightBlue
 import net.softwarevillage.moneydragon.presentation.ui.theme.fontFamily
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HistoryScreen(
+    modifier: Modifier = Modifier,
     viewModel: HistoryViewModel = hiltViewModel(),
     onBack: () -> Unit,
     onNavigate: (String) -> Unit,
@@ -48,6 +55,8 @@ fun HistoryScreen(
 
     val state = viewModel.state.collectAsStateWithLifecycle()
     val effect = viewModel.effect.collectAsStateWithLifecycle(initialValue = null)
+
+    val chipState = remember { mutableStateOf(HistoryFilterEnum.NOTHING) }
 
     val context = LocalContext.current
 
@@ -108,26 +117,42 @@ fun HistoryScreen(
                 )
             }
             Spacer(modifier = Modifier.height(14.dp))
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                TransactionItem(
-                    title = R.string.income,
-                    icon = R.drawable.arrow_top,
-                    price = "$${totalTransactionAmount(state.value.transactionData.filter { it.type != 0 })}",
-                    bgColor = LightBlue
-                )
-                Spacer(modifier = Modifier.width(12.dp))
-                TransactionItem(
-                    title = R.string.outgoing,
-                    icon = R.drawable.arrow_top_right,
-                    price = "$${totalTransactionAmount(state.value.transactionData.filter { it.type == 0 })}"
-                )
+            Row(
+                modifier = modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    TransactionItem(
+                        title = R.string.income,
+                        icon = R.drawable.arrow_top,
+                        chipState = chipState,
+                        state = HistoryFilterEnum.INCOME,
+                        price = "$${totalTransactionAmount(state.value.localTransactions.filter { it.type != 0 })}",
+                        bgColor = LightBlue
+                    )
+                    Spacer(modifier = Modifier.width(12.dp))
+                    TransactionItem(
+                        title = R.string.outgoing,
+                        icon = R.drawable.arrow_top_right,
+                        chipState = chipState,
+                        state = HistoryFilterEnum.OUTGOING,
+                        price = "$${totalTransactionAmount(state.value.localTransactions.filter { it.type == 0 })}"
+                    )
+                }
             }
             Spacer(modifier = Modifier.height(20.dp))
+            when (chipState.value) {
+                HistoryFilterEnum.INCOME -> viewModel.setEvent(HistoryEvent.TransactionFilter(1))
+                HistoryFilterEnum.NOTHING -> viewModel.setEvent(HistoryEvent.TransactionNewestFirst)
+                HistoryFilterEnum.OUTGOING -> viewModel.setEvent(HistoryEvent.TransactionFilter(0))
+            }
+
             if (state.value.isLoading) {
                 MainLottie(showState = true, res = R.raw.loading)
             } else {
                 LazyColumn {
-                    items(state.value.transactionData.reversed()) {
+                    items(state.value.transactionData) {
                         AccountMovementItem(
                             transactionUiModel = it, onNavigation = onNavigate
                         )
@@ -137,5 +162,4 @@ fun HistoryScreen(
 
         }
     }
-
 }
