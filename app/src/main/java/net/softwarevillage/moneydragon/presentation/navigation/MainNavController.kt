@@ -116,7 +116,7 @@ fun MainNavController() {
     ) { innerPadding ->
         NavHost(
             navController,
-            startDestination = Screen.ChartScreen.route,
+            startDestination = Screen.HistoryScreen.route,
             Modifier.padding(innerPadding)
         ) {
             composable(Screen.SplashScreen.route) {

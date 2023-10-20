@@ -25,6 +25,10 @@ interface LocalRepository {
 
     suspend fun getHighestTransaction(type: Int): Flow<Resource<TransactionUiModel>>
 
+    suspend fun getFilteredTransactions(type: Int): Flow<Resource<List<TransactionUiModel>>>
+
+    suspend fun getTransactionsNewestFirst(): Flow<Resource<List<TransactionUiModel>>>
+
     suspend fun isCardRegistered(): Flow<Resource<Boolean>>
 
     suspend fun isTransactionHave(): Flow<Resource<Boolean>>

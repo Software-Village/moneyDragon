@@ -26,6 +26,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -113,13 +114,15 @@ fun HomeScreen(
                 }
 
                 IconButton(onClick = {
-
+                    onNavigate(Screen.HistoryScreen.route)
                 }) {
                     Icon(
-                        painter = painterResource(id = R.drawable.notification_icon),
-                        contentDescription = null
+                        painter = painterResource(id = R.drawable.calendar_icon),
+                        contentDescription = null,
+                        tint = Color.Black
                     )
                 }
+
 
             }
 

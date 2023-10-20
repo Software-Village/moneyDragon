@@ -63,6 +63,26 @@ class LocalRepositoryImpl @Inject constructor(
             }
         }
 
+    override suspend fun getFilteredTransactions(type: Int): Flow<Resource<List<TransactionUiModel>>> =
+        flow {
+            emit(Resource.Loading)
+            when (val response = source.getFilteredTransactions(type)) {
+                is Resource.Error -> emit(Resource.Error(response.throwable))
+                Resource.Loading -> Unit
+                is Resource.Success -> emit(Resource.Success(response.result?.toTransactionUiModel()))
+            }
+        }
+
+    override suspend fun getTransactionsNewestFirst(): Flow<Resource<List<TransactionUiModel>>> =
+        flow {
+            emit(Resource.Loading)
+            when (val response = source.getTransactionsNewestFirst()) {
+                is Resource.Error -> emit(Resource.Error(response.throwable))
+                Resource.Loading -> Unit
+                is Resource.Success -> emit(Resource.Success(response.result?.toTransactionUiModel()))
+            }
+        }
+
     override suspend fun isCardRegistered(): Flow<Resource<Boolean>> = flow {
         emit(Resource.Loading)
         when (val response = source.isCardRegistered()) {
