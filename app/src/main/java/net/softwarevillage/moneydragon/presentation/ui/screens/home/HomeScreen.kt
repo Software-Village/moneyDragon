@@ -105,7 +105,7 @@ fun HomeScreen(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 IconButton(onClick = {
-
+                    onNavigate(Screen.FeedScreen.route)
                 }) {
                     Icon(
                         painter = painterResource(id = R.drawable.menu_icon),

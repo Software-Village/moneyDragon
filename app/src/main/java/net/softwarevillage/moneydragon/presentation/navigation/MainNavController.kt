@@ -32,6 +32,7 @@ import net.softwarevillage.moneydragon.presentation.ui.screens.auth.RegisterScre
 import net.softwarevillage.moneydragon.presentation.ui.screens.auth.WelcomeScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.chart.ChartScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.details.TransactionDetailsScreen
+import net.softwarevillage.moneydragon.presentation.ui.screens.feed.FeedScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.history.HistoryScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.home.HomeScreen
 import net.softwarevillage.moneydragon.presentation.ui.screens.onboarding.OnboardingScreen
@@ -73,6 +74,7 @@ fun MainNavController() {
         Screen.HistoryScreen.route,
         Screen.TransactionSuccessScreen.route,
         Screen.TransactionDetailsScreen.route + "?{id}",
+        Screen.FeedScreen.route,
         -> false
 
         else -> true
@@ -129,6 +131,16 @@ fun MainNavController() {
                         }
                     }
                 )
+            }
+
+            composable(Screen.FeedScreen.route) {
+                FeedScreen(
+                    onNavigate = {
+                        navController.navigate(it)
+                    },
+                    onBack = {
+                        navController.popBackStack()
+                    })
             }
 
             composable(
