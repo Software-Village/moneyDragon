@@ -106,4 +106,7 @@
     <string name="expenses_trends">Expenses Trends</string>
     <string name="highest_expense">Highest Expense</string>
     <string name="transaction_details">Transaction details</string>
+    <string name="feed_screen">Feed Screen</string>
+    <string name="feed">Feed</string>
+    <string name="latest_update">Latest Update</string>
 </resources>
